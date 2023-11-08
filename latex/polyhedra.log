@@ -1,0 +1,760 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.5.31)  6 NOV 2023 16:39
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**polyhedra.tex
+(./polyhedra.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-01-21>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
+File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count193
+\Gm@cntv=\count194
+\c@Gm@tempcnt=\count195
+\Gm@bindingoffset=\dimen139
+\Gm@wd@mp=\dimen140
+\Gm@odd@mp=\dimen141
+\Gm@even@mp=\dimen142
+\Gm@layoutwidth=\dimen143
+\Gm@layoutheight=\dimen144
+\Gm@layouthoffset=\dimen145
+\Gm@layoutvoffset=\dimen146
+\Gm@dimlist=\toks17
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen147
+\Gin@req@width=\dimen148
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xfrac/xfrac.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2022-01-21 L3 programming layer (loader) 
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count196
+\l__pdf_internal_box=\box50
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks18
+\ex@=\dimen149
+))
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+Package: l3keys2e 2022-01-12 LaTeX2e option processing using LaTeX3 keys
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2022-01-12 L3 Experimental document command parser
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xtemplate/xtemplate.sty
+Package: xtemplate 2022-01-12 L3 Experimental prototype document functions
+\l__xtemplate_tmp_dim=\dimen150
+\l__xtemplate_tmp_int=\count197
+\l__xtemplate_tmp_muskip=\muskip16
+\l__xtemplate_tmp_skip=\skip49
+)
+Package: xfrac 2022-01-12 L3 Experimental split-level fractions
+\l__xfrac_slash_box=\box51
+\l__xfrac_tmp_box=\box52
+\l__xfrac_denominator_bot_sep_dim=\dimen151
+\l__xfrac_numerator_bot_sep_dim=\dimen152
+\l__xfrac_numerator_top_sep_dim=\dimen153
+\l__xfrac_slash_left_sep_dim=\dimen154
+\l__xfrac_slash_right_sep_dim=\dimen155
+\l__xfrac_slash_left_muskip=\muskip17
+\l__xfrac_slash_right_muskip=\muskip18
+
+Package xtemplate Info: Declaring object type 'xfrac' taking 3 argument(s) on
+(xtemplate)             line 80.
+
+)
+(./polyhedra.aux)
+\openout1 = `polyhedra.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=59.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count198
+\scratchdimen=\dimen156
+\scratchbox=\box53
+\nofMPsegments=\count199
+\nofMParguments=\count266
+\everyMPshowfont=\toks19
+\MPscratchCnt=\count267
+\MPscratchDim=\dimen157
+\MPnumerator=\count268
+\makeMPintoPDFobject=\count269
+\everyMPtoPDFconversion=\toks20
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+
+pdfTeX warning: pdflatex (file ../figs/fig0.pdf): PDF inclusion: found PDF vers
+ion <1.7>, but at most version <1.5> allowed
+<../figs/fig0.pdf, id=1, 363.3575pt x 254.9525pt>
+File: ../figs/fig0.pdf Graphic file (type pdf)
+<use ../figs/fig0.pdf>
+Package pdftex.def Info: ../figs/fig0.pdf  used on input line 11.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 4279) in paragraph at lines 11--13
+\OT1/cmr/m/n/10.95 pa-per con-trol the rel-a-tive
+ []
+
+
+Underfull \hbox (badness 2245) in paragraph at lines 19--20
+[]\OT1/cmr/m/n/10.95 A set of folds to make units for all the Pla-tonic,
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig1.pdf): PDF inclusion: found PDF vers
+ion <1.7>, but at most version <1.5> allowed
+<../figs/fig1.pdf, id=2, 363.3575pt x 254.9525pt>
+File: ../figs/fig1.pdf Graphic file (type pdf)
+<use ../figs/fig1.pdf>
+Package pdftex.def Info: ../figs/fig1.pdf  used on input line 25.
+(pdftex.def)             Requested size: 211.38832pt x 148.3238pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig2.pdf): PDF inclusion: found PDF vers
+ion <1.7>, but at most version <1.5> allowed
+<../figs/fig2.pdf, id=3, 363.3575pt x 254.9525pt>
+File: ../figs/fig2.pdf Graphic file (type pdf)
+<use ../figs/fig2.pdf>
+Package pdftex.def Info: ../figs/fig2.pdf  used on input line 30.
+(pdftex.def)             Requested size: 211.38832pt x 148.3238pt.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 3
+1.
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
+1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+
+pdfTeX warning: pdflatex (file ../figs/fig3.pdf): PDF inclusion: found PDF vers
+ion <1.7>, but at most version <1.5> allowed
+<../figs/fig3.pdf, id=4, 363.3575pt x 254.9525pt>
+File: ../figs/fig3.pdf Graphic file (type pdf)
+<use ../figs/fig3.pdf>
+Package pdftex.def Info: ../figs/fig3.pdf  used on input line 37.
+(pdftex.def)             Requested size: 211.38832pt x 148.3238pt.
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <../figs/fig0.pdf> <../figs
+/fig1.pdf> <../figs/fig2.pdf> <../figs/fig3.pdf>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 42.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 42.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 42.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03b-04.pdf): PDF inclusion: found PDF
+ version <1.7>, but at most version <1.5> allowed
+<../figs/fig03b-04.pdf, id=19, 363.3575pt x 254.9525pt>
+File: ../figs/fig03b-04.pdf Graphic file (type pdf)
+<use ../figs/fig03b-04.pdf>
+Package pdftex.def Info: ../figs/fig03b-04.pdf  used on input line 46.
+(pdftex.def)             Requested size: 211.38832pt x 148.3238pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03b-05.pdf): PDF inclusion: found PDF
+ version <1.7>, but at most version <1.5> allowed
+<../figs/fig03b-05.pdf, id=20, 363.3575pt x 254.9525pt>
+File: ../figs/fig03b-05.pdf Graphic file (type pdf)
+<use ../figs/fig03b-05.pdf>
+Package pdftex.def Info: ../figs/fig03b-05.pdf  used on input line 51.
+(pdftex.def)             Requested size: 211.38832pt x 148.3238pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03b-06.pdf): PDF inclusion: found PDF
+ version <1.7>, but at most version <1.5> allowed
+<../figs/fig03b-06.pdf, id=21, 363.3575pt x 254.9525pt>
+File: ../figs/fig03b-06.pdf Graphic file (type pdf)
+<use ../figs/fig03b-06.pdf>
+Package pdftex.def Info: ../figs/fig03b-06.pdf  used on input line 58.
+(pdftex.def)             Requested size: 179.68135pt x 126.07542pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03b-07.pdf): PDF inclusion: found PDF
+ version <1.7>, but at most version <1.5> allowed
+<../figs/fig03b-07.pdf, id=22, 363.3575pt x 254.9525pt>
+File: ../figs/fig03b-07.pdf Graphic file (type pdf)
+<use ../figs/fig03b-07.pdf>
+Package pdftex.def Info: ../figs/fig03b-07.pdf  used on input line 63.
+(pdftex.def)             Requested size: 179.68135pt x 126.07542pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03b-08.pdf): PDF inclusion: found PDF
+ version <1.7>, but at most version <1.5> allowed
+<../figs/fig03b-08.pdf, id=23, 363.3575pt x 254.9525pt>
+File: ../figs/fig03b-08.pdf Graphic file (type pdf)
+<use ../figs/fig03b-08.pdf>
+Package pdftex.def Info: ../figs/fig03b-08.pdf  used on input line 70.
+(pdftex.def)             Requested size: 179.68135pt x 126.07542pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03b-09.pdf): PDF inclusion: found PDF
+ version <1.7>, but at most version <1.5> allowed
+<../figs/fig03b-09.pdf, id=24, 363.3575pt x 254.9525pt>
+File: ../figs/fig03b-09.pdf Graphic file (type pdf)
+<use ../figs/fig03b-09.pdf>
+Package pdftex.def Info: ../figs/fig03b-09.pdf  used on input line 75.
+(pdftex.def)             Requested size: 179.68135pt x 126.07542pt.
+[2 <../figs/fig03b-04.pdf> <../figs/fig03b-05.pdf> <../figs/fig03b-06.pdf> <../
+figs/fig03b-07.pdf> <../figs/fig03b-08.pdf> <../figs/fig03b-09.pdf>]
+
+pdfTeX warning: pdflatex (file ../figs/fig03-04.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig03-04.pdf, id=36, 363.3575pt x 254.9525pt>
+File: ../figs/fig03-04.pdf Graphic file (type pdf)
+<use ../figs/fig03-04.pdf>
+Package pdftex.def Info: ../figs/fig03-04.pdf  used on input line 84.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 85--85
+[]\OT1/cmr/m/n/10.95 Crease hor-i-zon-tally
+ []
+
+
+Underfull \hbox (badness 4899) in paragraph at lines 85--85
+\OT1/cmr/m/n/10.95 through the in-ter-sec-
+ []
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 85--85
+\OT1/cmr/m/n/10.95 tion of creases from
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03-05.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig03-05.pdf, id=37, 363.3575pt x 254.9525pt>
+File: ../figs/fig03-05.pdf Graphic file (type pdf)
+<use ../figs/fig03-05.pdf>
+Package pdftex.def Info: ../figs/fig03-05.pdf  used on input line 88.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03-06.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig03-06.pdf, id=38, 363.3575pt x 254.9525pt>
+File: ../figs/fig03-06.pdf Graphic file (type pdf)
+<use ../figs/fig03-06.pdf>
+Package pdftex.def Info: ../figs/fig03-06.pdf  used on input line 92.
+(pdftex.def)             Requested size: 119.7896pt x 84.04898pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03-07.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig03-07.pdf, id=39, 363.3575pt x 254.9525pt>
+File: ../figs/fig03-07.pdf Graphic file (type pdf)
+<use ../figs/fig03-07.pdf>
+Package pdftex.def Info: ../figs/fig03-07.pdf  used on input line 99.
+(pdftex.def)             Requested size: 119.7896pt x 84.04898pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03-08.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig03-08.pdf, id=40, 363.3575pt x 254.9525pt>
+File: ../figs/fig03-08.pdf Graphic file (type pdf)
+<use ../figs/fig03-08.pdf>
+Package pdftex.def Info: ../figs/fig03-08.pdf  used on input line 103.
+(pdftex.def)             Requested size: 119.7896pt x 84.04898pt.
+
+Underfull \hbox (badness 4954) in paragraph at lines 104--104
+\OT1/cmr/m/n/10.95 and fold the sec-ond
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig03-09.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig03-09.pdf, id=41, 363.3575pt x 254.9525pt>
+File: ../figs/fig03-09.pdf Graphic file (type pdf)
+<use ../figs/fig03-09.pdf>
+Package pdftex.def Info: ../figs/fig03-09.pdf  used on input line 107.
+(pdftex.def)             Requested size: 119.7896pt x 84.04898pt.
+
+Underfull \hbox (badness 2635) in paragraph at lines 108--108
+[]\OT1/cmr/m/n/10.95 Finished view of the
+ []
+
+[3 <../figs/fig03-04.pdf> <../figs/fig03-05.pdf> <../figs/fig03-06.pdf> <../fig
+s/fig03-07.pdf> <../figs/fig03-08.pdf> <../figs/fig03-09.pdf>]
+
+pdfTeX warning: pdflatex (file ../figs/fig04-04.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig04-04.pdf, id=56, 363.3575pt x 254.9525pt>
+File: ../figs/fig04-04.pdf Graphic file (type pdf)
+<use ../figs/fig04-04.pdf>
+Package pdftex.def Info: ../figs/fig04-04.pdf  used on input line 116.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 117--117
+[]\OT1/cmr/m/n/10.95 Crease hor-i-zon-tally
+ []
+
+
+Underfull \hbox (badness 4899) in paragraph at lines 117--117
+\OT1/cmr/m/n/10.95 through the in-ter-sec-
+ []
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 117--117
+\OT1/cmr/m/n/10.95 tion of creases from
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig04-05.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig04-05.pdf, id=57, 363.3575pt x 254.9525pt>
+File: ../figs/fig04-05.pdf Graphic file (type pdf)
+<use ../figs/fig04-05.pdf>
+Package pdftex.def Info: ../figs/fig04-05.pdf  used on input line 120.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig04-06.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig04-06.pdf, id=58, 363.3575pt x 254.9525pt>
+File: ../figs/fig04-06.pdf Graphic file (type pdf)
+<use ../figs/fig04-06.pdf>
+Package pdftex.def Info: ../figs/fig04-06.pdf  used on input line 124.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig04-07.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig04-07.pdf, id=59, 363.3575pt x 254.9525pt>
+File: ../figs/fig04-07.pdf Graphic file (type pdf)
+<use ../figs/fig04-07.pdf>
+Package pdftex.def Info: ../figs/fig04-07.pdf  used on input line 131.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 4954) in paragraph at lines 132--132
+\OT1/cmr/m/n/10.95 and fold the sec-ond
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig04-08.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig04-08.pdf, id=60, 363.3575pt x 254.9525pt>
+File: ../figs/fig04-08.pdf Graphic file (type pdf)
+<use ../figs/fig04-08.pdf>
+Package pdftex.def Info: ../figs/fig04-08.pdf  used on input line 135.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 2635) in paragraph at lines 136--136
+[]\OT1/cmr/m/n/10.95 Finished view of the
+ []
+
+[4 <../figs/fig04-04.pdf> <../figs/fig04-05.pdf> <../figs/fig04-06.pdf> <../fig
+s/fig04-07.pdf> <../figs/fig04-08.pdf>]
+
+pdfTeX warning: pdflatex (file ../figs/fig05-04.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig05-04.pdf, id=69, 363.3575pt x 254.9525pt>
+File: ../figs/fig05-04.pdf Graphic file (type pdf)
+<use ../figs/fig05-04.pdf>
+Package pdftex.def Info: ../figs/fig05-04.pdf  used on input line 144.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig05-05.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig05-05.pdf, id=70, 363.3575pt x 254.9525pt>
+File: ../figs/fig05-05.pdf Graphic file (type pdf)
+<use ../figs/fig05-05.pdf>
+Package pdftex.def Info: ../figs/fig05-05.pdf  used on input line 148.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig05-06.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig05-06.pdf, id=71, 363.3575pt x 254.9525pt>
+File: ../figs/fig05-06.pdf Graphic file (type pdf)
+<use ../figs/fig05-06.pdf>
+Package pdftex.def Info: ../figs/fig05-06.pdf  used on input line 152.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 4954) in paragraph at lines 153--153
+\OT1/cmr/m/n/10.95 and fold the sec-ond
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig05-07.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig05-07.pdf, id=72, 363.3575pt x 254.9525pt>
+File: ../figs/fig05-07.pdf Graphic file (type pdf)
+<use ../figs/fig05-07.pdf>
+Package pdftex.def Info: ../figs/fig05-07.pdf  used on input line 159.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 2635) in paragraph at lines 160--160
+[]\OT1/cmr/m/n/10.95 Finished view of the
+ []
+
+[5 <../figs/fig05-04.pdf> <../figs/fig05-05.pdf> <../figs/fig05-06.pdf> <../fig
+s/fig05-07.pdf>]
+
+pdfTeX warning: pdflatex (file ../figs/fig06-04.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig06-04.pdf, id=81, 363.3575pt x 254.9525pt>
+File: ../figs/fig06-04.pdf Graphic file (type pdf)
+<use ../figs/fig06-04.pdf>
+Package pdftex.def Info: ../figs/fig06-04.pdf  used on input line 168.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 169--169
+[]\OT1/cmr/m/n/10.95 Crease hor-i-zon-tally
+ []
+
+
+Underfull \hbox (badness 4899) in paragraph at lines 169--169
+\OT1/cmr/m/n/10.95 through the in-ter-sec-
+ []
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 169--169
+\OT1/cmr/m/n/10.95 tion of creases from
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig06-05.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig06-05.pdf, id=82, 363.3575pt x 254.9525pt>
+File: ../figs/fig06-05.pdf Graphic file (type pdf)
+<use ../figs/fig06-05.pdf>
+Package pdftex.def Info: ../figs/fig06-05.pdf  used on input line 172.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig06-06.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig06-06.pdf, id=83, 363.3575pt x 254.9525pt>
+File: ../figs/fig06-06.pdf Graphic file (type pdf)
+<use ../figs/fig06-06.pdf>
+Package pdftex.def Info: ../figs/fig06-06.pdf  used on input line 176.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig06-07.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig06-07.pdf, id=84, 363.3575pt x 254.9525pt>
+File: ../figs/fig06-07.pdf Graphic file (type pdf)
+<use ../figs/fig06-07.pdf>
+Package pdftex.def Info: ../figs/fig06-07.pdf  used on input line 183.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 4954) in paragraph at lines 184--184
+\OT1/cmr/m/n/10.95 and fold the sec-ond
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig06-08.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig06-08.pdf, id=85, 363.3575pt x 254.9525pt>
+File: ../figs/fig06-08.pdf Graphic file (type pdf)
+<use ../figs/fig06-08.pdf>
+Package pdftex.def Info: ../figs/fig06-08.pdf  used on input line 187.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 2635) in paragraph at lines 188--188
+[]\OT1/cmr/m/n/10.95 Finished view of the
+ []
+
+[6 <../figs/fig06-04.pdf> <../figs/fig06-05.pdf> <../figs/fig06-06.pdf> <../fig
+s/fig06-07.pdf> <../figs/fig06-08.pdf>]
+
+pdfTeX warning: pdflatex (file ../figs/fig08-04.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig08-04.pdf, id=94, 363.3575pt x 254.9525pt>
+File: ../figs/fig08-04.pdf Graphic file (type pdf)
+<use ../figs/fig08-04.pdf>
+Package pdftex.def Info: ../figs/fig08-04.pdf  used on input line 196.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--197
+[]\OT1/cmr/m/n/10.95 Crease hor-i-zon-tally
+ []
+
+
+Underfull \hbox (badness 4899) in paragraph at lines 197--197
+\OT1/cmr/m/n/10.95 through the in-ter-sec-
+ []
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 197--197
+\OT1/cmr/m/n/10.95 tion of creases from
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig08-05.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig08-05.pdf, id=95, 363.3575pt x 254.9525pt>
+File: ../figs/fig08-05.pdf Graphic file (type pdf)
+<use ../figs/fig08-05.pdf>
+Package pdftex.def Info: ../figs/fig08-05.pdf  used on input line 200.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig08-06.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig08-06.pdf, id=96, 363.3575pt x 254.9525pt>
+File: ../figs/fig08-06.pdf Graphic file (type pdf)
+<use ../figs/fig08-06.pdf>
+Package pdftex.def Info: ../figs/fig08-06.pdf  used on input line 204.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig08-07.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig08-07.pdf, id=97, 363.3575pt x 254.9525pt>
+File: ../figs/fig08-07.pdf Graphic file (type pdf)
+<use ../figs/fig08-07.pdf>
+Package pdftex.def Info: ../figs/fig08-07.pdf  used on input line 211.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 4954) in paragraph at lines 212--212
+\OT1/cmr/m/n/10.95 and fold the sec-ond
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig08-08.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig08-08.pdf, id=98, 363.3575pt x 254.9525pt>
+File: ../figs/fig08-08.pdf Graphic file (type pdf)
+<use ../figs/fig08-08.pdf>
+Package pdftex.def Info: ../figs/fig08-08.pdf  used on input line 215.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 2635) in paragraph at lines 216--216
+[]\OT1/cmr/m/n/10.95 Finished view of the
+ []
+
+[7 <../figs/fig08-04.pdf> <../figs/fig08-05.pdf> <../figs/fig08-06.pdf> <../fig
+s/fig08-07.pdf> <../figs/fig08-08.pdf>]
+
+pdfTeX warning: pdflatex (file ../figs/fig10-04.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig10-04.pdf, id=108, 363.3575pt x 254.9525pt>
+File: ../figs/fig10-04.pdf Graphic file (type pdf)
+<use ../figs/fig10-04.pdf>
+Package pdftex.def Info: ../figs/fig10-04.pdf  used on input line 224.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 225--225
+[]\OT1/cmr/m/n/10.95 Crease hor-i-zon-tally
+ []
+
+
+Underfull \hbox (badness 4899) in paragraph at lines 225--225
+\OT1/cmr/m/n/10.95 through the in-ter-sec-
+ []
+
+
+Underfull \hbox (badness 4634) in paragraph at lines 225--225
+\OT1/cmr/m/n/10.95 tion of creases from
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig10-05.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig10-05.pdf, id=109, 363.3575pt x 254.9525pt>
+File: ../figs/fig10-05.pdf Graphic file (type pdf)
+<use ../figs/fig10-05.pdf>
+Package pdftex.def Info: ../figs/fig10-05.pdf  used on input line 228.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 3009) in paragraph at lines 229--229
+\OT1/cmr/m/n/10.95 right cor-ner and the
+ []
+
+
+Underfull \hbox (badness 1642) in paragraph at lines 229--229
+\OT1/cmr/m/n/10.95 in-ter-sec-tion of creases
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig10-06.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig10-06.pdf, id=110, 363.3575pt x 254.9525pt>
+File: ../figs/fig10-06.pdf Graphic file (type pdf)
+<use ../figs/fig10-06.pdf>
+Package pdftex.def Info: ../figs/fig10-06.pdf  used on input line 232.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+
+pdfTeX warning: pdflatex (file ../figs/fig10-07.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig10-07.pdf, id=111, 363.3575pt x 254.9525pt>
+File: ../figs/fig10-07.pdf Graphic file (type pdf)
+<use ../figs/fig10-07.pdf>
+Package pdftex.def Info: ../figs/fig10-07.pdf  used on input line 239.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 4954) in paragraph at lines 240--240
+\OT1/cmr/m/n/10.95 and fold the sec-ond
+ []
+
+
+
+pdfTeX warning: pdflatex (file ../figs/fig10-08.pdf): PDF inclusion: found PDF 
+version <1.7>, but at most version <1.5> allowed
+<../figs/fig10-08.pdf, id=112, 363.3575pt x 254.9525pt>
+File: ../figs/fig10-08.pdf Graphic file (type pdf)
+<use ../figs/fig10-08.pdf>
+Package pdftex.def Info: ../figs/fig10-08.pdf  used on input line 243.
+(pdftex.def)             Requested size: 140.92793pt x 98.88643pt.
+
+Underfull \hbox (badness 2635) in paragraph at lines 244--244
+[]\OT1/cmr/m/n/10.95 Finished view of the
+ []
+
+[8 <../figs/fig10-04.pdf> <../figs/fig10-05.pdf> <../figs/fig10-06.pdf> <../fig
+s/fig10-07.pdf> <../figs/fig10-08.pdf>] (./polyhedra.aux) ) 
+Here is how much of TeX's memory you used:
+ 2849 strings out of 480247
+ 56422 string characters out of 5896151
+ 344029 words of memory out of 5000000
+ 20742 multiletter control sequences out of 15000+600000
+ 474802 words of font info for 43 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 55i,6n,65p,416b,317s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/
+texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on polyhedra.pdf (8 pages, 215981 bytes).
+PDF statistics:
+ 158 PDF objects out of 1000 (max. 8388607)
+ 89 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 201 words of extra memory for PDF output out of 10000 (max. 10000000)
+
