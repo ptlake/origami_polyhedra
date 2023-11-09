@@ -23,7 +23,7 @@ def get_yscale():
     return t
     
 
-def draw_fold(yscale, angle, y1, anglep, y1p):
+def draw_fold(yscale, angle, y1):
     y0p = y0 * yscale
     
     phi = 0.5 * math.pi - 0.5 * angle * math.pi / 180.
@@ -32,35 +32,24 @@ def draw_fold(yscale, angle, y1, anglep, y1p):
     x3 = x2 * (1. - math.cos(2. * phi))
     y3 = x2 * math.sin(2. * phi)
 
-    phip = 0.5 * math.pi - 0.5 * anglep * math.pi / 180.
-    y2p = y1p + 0.5 * x0 * math.tan(phip)
-    x2p = 0.5 * x0 + y1p / math.tan(phip)
-    x3p = x2p * (1. - math.cos(2. * phip))
-    y3p = x2p * math.sin(2. * phip)
-    
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.axis('off')
     ax.set_aspect(aspect='equal')
     #frame bottom
     ax.plot([x2, x0],[0,0], linewidth=1, color="black")
     #frame right
-    ax.plot([x0, x0],[0, y0p - y2p], linewidth=1, color="black")
+    ax.plot([x0, x0],[0, y0p], linewidth=1, color="black")
     #frame top
-    ax.plot([x0 - x2p, 0],[y0p, y0p], linewidth=1, color="black")
+    ax.plot([x0, 0],[y0p, y0p], linewidth=1, color="black")
     #frame left
     ax.plot([0, 0],[y0p, y2], linewidth=1, color="black")
 
     #bottom corner
     ax.plot([0, x3, x2, 0],[y2, y3, 0, y2], linewidth=1, color="black")
-    #top corner
-    ax.plot([x0, x0 - x3p, x0 - x2p, x0],[y0p - y2p, y0p - y3p, y0p, y0p - y2p], linewidth=1, color="black")
 
     # horizontal bottom
     ax.plot([x2 + y1 * (x3 - x2) / y3, x0],[y1, y1], linewidth=0.5, color="black")
     ax.plot([0.5 * x0, x3* (y2 - y1) / y2],[y1, y2 + (y3 - y2) * (y2 - y1) / y2], linewidth=0.5, color="black")
-    # horizontal top
-    ax.plot([x0 - (x2p + y1p * (x3p - x2p) / y3p), 0],[y0p - y1p, y0p - y1p], linewidth=0.5, color="black")
-    ax.plot([x0 - 0.5 * x0, x0 - x3p * (y2p - y1p) / y2p],[y0p - y1p, y0p - (y2p + (y3p - y2p) * (y2p - y1p) / y2p)], linewidth=0.5, color="black")
     
     # 1/4 line diag bottom
     ax.plot([0.25 * x0, x2 + (x3 - x2) * (x2 - 0.25 * x0) / x2],[y2 * (x2 - 0.25 * x0) / x2, y3 * (x2 - 0.25 * x0) / x2], linewidth=0.5, color="black")
@@ -69,28 +58,17 @@ def draw_fold(yscale, angle, y1, anglep, y1p):
         ymin = y2 - 0.25 * x0 / x3 * (y2 - y3)
     else:
         ymin = y3 - (x3 - 0.25 * x0) / (x3 - x2) * y3
-    if x3p > 0.75 * x0:
-        ymax = y0p - (y2p - 0.75 * x0 / x3p * (y2p - y3p))
-    elif x2p > 0.75 * x0:
-        ymax = y0p - (y3p - (x3p - 0.75 * x0) / (x3p - x2p) * y3p)
-    else:
-        ymax = y0p
 
-    ax.plot([0.25 * x0, 0.25 * x0],[ymin, ymax], linewidth=0.5, color="black")
-    if x3p > 0.75 * x0:
-        ax.plot([0.25 * x0, 0.25 * x0], [y0p, y0p - (y3p - (x3p - 0.75 * x0) / (x3p - x2p) * y3p)], linewidth=0.5, color="black")
+    ax.plot([0.25 * x0, 0.25 * x0],[ymin, y0p], linewidth=0.5, color="black")
+        
+    # 1/2 line diag bottom
+    ax.plot([0.50 * x0, x2 + (x3 - x2) * (x2 - 0.50 * x0) / x2],[y2 * (x2 - 0.50 * x0) / x2, y3 * (x2 - 0.50 * x0) / x2], linewidth=0.5, color="black")
     # 1/2 line
     if x3 < 0.5 * x0:
         ymin = y3 - (x3 - 0.5 * x0) / (x3 - x2) * y3
     else:
         ymin = y2 - 0.50 * x0 / x3 * (y2 - y3)
-    if x3p < 0.5 * x0:
-        ymax = y0p - (y3p - (x3p - 0.5 * x0) / (x3p - x2p) * y3p)
-    else:
-        ymax = y0p - (y2p - 0.50 * x0 / x3p * (y2p - y3p))
-    ax.plot([0.50 * x0, 0.50 * x0],[ymin, ymax], linewidth=0.5, color="black")
-    # 3/4 line diag top
-    ax.plot([x0 - 0.25 * x0, x0 - (x2p + (x3p - x2p) * (x2p - 0.25 * x0) / x2p)],[y0p - y2p * (x2p - 0.25 * x0) / x2p, y0p - y3p * (x2p - 0.25 * x0) / x2p], linewidth=0.5, color="black")
+    ax.plot([0.50 * x0, 0.50 * x0],[ymin, y0p], linewidth=0.5, color="black")
     # 3/4 line vertical
     if x3 > 0.75 * x0:
         ymin = y2 - 0.75 * x0 / x3 * (y2 - y3)
@@ -98,22 +76,107 @@ def draw_fold(yscale, angle, y1, anglep, y1p):
         ymin = y3 - (x3 - 0.75 * x0) / (x3 - x2) * y3
     else:
         ymin = 0
-    if x3p > 0.25 * x0:
-        ymax = y0p - (y2p - 0.25 * x0 / x3p * (y2p - y3p))
-    else:
-        ymax = y0p - (y3p - (x3p - 0.25 * x0) / (x3p - x2p) * y3p)
-    ax.plot([0.75 * x0, 0.75 * x0], [ymin, ymax], linewidth=0.5, color="black")
-    if x3 > 0.75 * x0:
+    ax.plot([0.75 * x0, 0.75 * x0], [ymin, y0p], linewidth=0.5, color="black")
+    if x3 > 0.75 * x0 and x2 < 0.75 * x0:
         ax.plot([0.75 * x0, 0.75 * x0], [0, y3 - (x3 - 0.75 * x0) / (x3 - x2) * y3], linewidth=0.5, color="black")
         
     st.pyplot(fig)
 
+#def draw_fold(yscale, angle, y1, anglep, y1p):
+#    y0p = y0 * yscale
+#    
+#    phi = 0.5 * math.pi - 0.5 * angle * math.pi / 180.
+#    y2 = y1 + 0.5 * x0 * math.tan(phi)
+#    x2 = 0.5 * x0 + y1 / math.tan(phi)
+#    x3 = x2 * (1. - math.cos(2. * phi))
+#    y3 = x2 * math.sin(2. * phi)
+#
+#    phip = 0.5 * math.pi - 0.5 * anglep * math.pi / 180.
+#    y2p = y1p + 0.5 * x0 * math.tan(phip)
+#    x2p = 0.5 * x0 + y1p / math.tan(phip)
+#    x3p = x2p * (1. - math.cos(2. * phip))
+#    y3p = x2p * math.sin(2. * phip)
+#    
+#    fig, ax = plt.subplots(figsize=(6, 4))
+#    ax.axis('off')
+#    ax.set_aspect(aspect='equal')
+#    #frame bottom
+#    ax.plot([x2, x0],[0,0], linewidth=1, color="black")
+#    #frame right
+#    ax.plot([x0, x0],[0, y0p - y2p], linewidth=1, color="black")
+#    #frame top
+#    ax.plot([x0 - x2p, 0],[y0p, y0p], linewidth=1, color="black")
+#    #frame left
+#    ax.plot([0, 0],[y0p, y2], linewidth=1, color="black")
+#
+#    #bottom corner
+#    ax.plot([0, x3, x2, 0],[y2, y3, 0, y2], linewidth=1, color="black")
+#    #top corner
+#    ax.plot([x0, x0 - x3p, x0 - x2p, x0],[y0p - y2p, y0p - y3p, y0p, y0p - y2p], linewidth=1, color="black")
+#
+#    # horizontal bottom
+#    ax.plot([x2 + y1 * (x3 - x2) / y3, x0],[y1, y1], linewidth=0.5, color="black")
+#    ax.plot([0.5 * x0, x3* (y2 - y1) / y2],[y1, y2 + (y3 - y2) * (y2 - y1) / y2], linewidth=0.5, color="black")
+#    # horizontal top
+#    ax.plot([x0 - (x2p + y1p * (x3p - x2p) / y3p), 0],[y0p - y1p, y0p - y1p], linewidth=0.5, color="black")
+#    ax.plot([x0 - 0.5 * x0, x0 - x3p * (y2p - y1p) / y2p],[y0p - y1p, y0p - (y2p + (y3p - y2p) * (y2p - y1p) / y2p)], linewidth=0.5, color="black")
+#    
+#    # 1/4 line diag bottom
+#    ax.plot([0.25 * x0, x2 + (x3 - x2) * (x2 - 0.25 * x0) / x2],[y2 * (x2 - 0.25 * x0) / x2, y3 * (x2 - 0.25 * x0) / x2], linewidth=0.5, color="black")
+#    # 1/4 line vertical
+#    if x3 > 0.25 * x0:
+#        ymin = y2 - 0.25 * x0 / x3 * (y2 - y3)
+#    else:
+#        ymin = y3 - (x3 - 0.25 * x0) / (x3 - x2) * y3
+#    if x3p > 0.75 * x0:
+#        ymax = y0p - (y2p - 0.75 * x0 / x3p * (y2p - y3p))
+#    elif x2p > 0.75 * x0:
+#        ymax = y0p - (y3p - (x3p - 0.75 * x0) / (x3p - x2p) * y3p)
+#    else:
+#        ymax = y0p
+#
+#    ax.plot([0.25 * x0, 0.25 * x0],[ymin, ymax], linewidth=0.5, color="black")
+#    if x3p > 0.75 * x0 and x2p < 0.75 * x0:
+#        ax.plot([0.25 * x0, 0.25 * x0], [y0p, y0p - (y3p - (x3p - 0.75 * x0) / (x3p - x2p) * y3p)], linewidth=0.5, color="black")
+#        
+#    # 1/2 line diag bottom
+#    ax.plot([0.50 * x0, x2 + (x3 - x2) * (x2 - 0.50 * x0) / x2],[y2 * (x2 - 0.50 * x0) / x2, y3 * (x2 - 0.50 * x0) / x2], linewidth=0.5, color="black")
+#    # 1/2 line diag top
+#    ax.plot([0.50 * x0, x0 - (x2p + (x3p - x2p) * (x2p - 0.50 * x0) / x2p)],[y0p - (y2p * (x2p - 0.50 * x0) / x2p), y0p - (y3p * (x2p - 0.50 * x0) / x2p)], linewidth=0.5, color="black")
+#    # 1/2 line
+#    if x3 < 0.5 * x0:
+#        ymin = y3 - (x3 - 0.5 * x0) / (x3 - x2) * y3
+#    else:
+#        ymin = y2 - 0.50 * x0 / x3 * (y2 - y3)
+#    if x3p < 0.5 * x0:
+#        ymax = y0p - (y3p - (x3p - 0.5 * x0) / (x3p - x2p) * y3p)
+#    else:
+#        ymax = y0p - (y2p - 0.50 * x0 / x3p * (y2p - y3p))
+#    ax.plot([0.50 * x0, 0.50 * x0],[ymin, ymax], linewidth=0.5, color="black")
+#    # 3/4 line diag top
+#    ax.plot([x0 - 0.25 * x0, x0 - (x2p + (x3p - x2p) * (x2p - 0.25 * x0) / x2p)],[y0p - y2p * (x2p - 0.25 * x0) / x2p, y0p - y3p * (x2p - 0.25 * x0) / x2p], linewidth=0.5, color="black")
+#    # 3/4 line vertical
+#    if x3 > 0.75 * x0:
+#        ymin = y2 - 0.75 * x0 / x3 * (y2 - y3)
+#    elif x2 > 0.75 * x0:
+#        ymin = y3 - (x3 - 0.75 * x0) / (x3 - x2) * y3
+#    else:
+#        ymin = 0
+#    if x3p > 0.25 * x0:
+#        ymax = y0p - (y2p - 0.25 * x0 / x3p * (y2p - y3p))
+#    else:
+#        ymax = y0p - (y3p - (x3p - 0.25 * x0) / (x3p - x2p) * y3p)
+#    ax.plot([0.75 * x0, 0.75 * x0], [ymin, ymax], linewidth=0.5, color="black")
+#    if x3 > 0.75 * x0 and x2 < 0.75 * x0:
+#        ax.plot([0.75 * x0, 0.75 * x0], [0, y3 - (x3 - 0.75 * x0) / (x3 - x2) * y3], linewidth=0.5, color="black")
+#        
+#    st.pyplot(fig)
+
 def update_slider():
-    print(preset_choice)
     st.session_state.slider = st.session_state["presets"][st.session_state.preset_choice][0] / 4.
     
 yscale_list = get_yscale()
-col1, col2 = st.columns([1,2])
+col1, col2, col3 = st.columns([1,1,1])
 
 #if not "presets" in st.session_state:
 st.session_state["presets"] = {}
@@ -123,6 +186,8 @@ st.session_state["presets"]["Triakis Tetrahedron (a)"] = (6,33.5573,3,112.8854,1
 st.session_state["presets"]["Triakis Tetrahedron (b)"] = (10,33.5573,3,33.5573,3)
 st.session_state["presets"]["Triakis Octahedron (a)"] = (7,31.3997,3,117.2006,6)
 st.session_state["presets"]["Triakis Octahedron (b)"] = (11,31.3997,3,31.3997,3)
+st.session_state["presets"]["Tetrakis Hexahedron (a)"] = (6,48.1897,2,83.6206,10)
+st.session_state["presets"]["Tetrakis Hexahedron (b)"] = (7,48.1897,2,48.1897,2)
 
 with st.sidebar:
     preset_choice = st.selectbox(
@@ -184,12 +249,13 @@ with st.form("selections"):
     else:
         if preset_choice == "None":
             st.session_state["presets"]["None"] = (int(yscale * 4.), angle, yscale_list.index(st.session_state.box1), anglep, yscale_list.index(st.session_state.box2))
-        print(st.session_state["presets"]["None"])
         y1 = y1[3] * x0
         y1p = y1p[3] * x0
         ell = (yscale - (y1 + y1p) / y0)/ ell0
         st.write(f"Side length: {ell:.3f}")
         with col1:
-            draw_fold(yscale, angle, y1, anglep, y1p)
+            draw_fold(yscale, angle, y1)
+        with col2:
+            draw_fold(yscale, anglep, y1p)
 
 ell0 = 1. - 0.5 * x0 / y0 * math.tan(0.5 * math.acos(1. / 3.))
