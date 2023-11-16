@@ -32,7 +32,7 @@ The added benefit of collecting this on GitHub is that I can share and showcase 
 
 - `polyhedra.pdf` Instructions on folding units for polyhedra with regular polygonal faces - i.e. Platonic, Archimedean, and Johnson solids.
 
-- `fold_app.py` Code for a Streamlit app to visualize folding units or arbitrary length and angle.  I use this tool to develop new folds for the Catalan solids, for example.  There are saved presets for polyhedra I have already worked on, and I hope to extend this code to programtically generate instructions.
+- `fold_app.py` Code for a Streamlit app to generate instructions for both defined polyhedra and arbitrary units.
 
 - `latex` Folder containing the $\LaTeX$ script to generate `polyhedra.pdf`
 
@@ -47,14 +47,15 @@ The added benefit of collecting this on GitHub is that I can share and showcase 
 
 - `polyhedra.pdf` needs work.  A consistent formatting of image sizes needs to be implemented.  There are no directions of how to join units.  Notes should be added to clarify some aspects.  Like how tearing the tab in for the triangle faces is necessary for Platonic solids as opposed to Archimedean solids.  Also forewarn the reader that the snub polyhedra require more patience to assemble.
 
-- `figs` needs to be made obsolete.  Having `fold_app.py` generate the necessary figures will resolve this mess of files.
-
 - `catalan` needs to be documented and cleaned.
 
 - `gallery` needs more pictures!  Group by family and individual.
 
 - Most work will focus on `fold_app.py`.
+    - Complete diagrams.
+    - Add a boolean to remove the bottom tab.
+    - Link various units needed for a given polyhedra.
+    - Work on writing the fold description for the step that creates the angle.
     - Add units for all Platonic, Archimedean, and Catalan solids to presets.
-    - Add a mode that not only displays the key step in getting the angle, but to generate all figures necessary to diagram the whole fold.
+    - Add a switch to toggle between a mode that displays the key step in getting the angle and generates all figures necessary to diagram the whole fold.
     - Allow for variable paper sizes, not only the half letter paper proportion I use.
-    - Change the format of the `y-offset` to be more intuitive/cleaner.

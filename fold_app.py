@@ -32,12 +32,16 @@ def update_slider():
     
 yoffset_list = get_yoffset()
 header = st.container()
-row0 = st.container()
-row1 = st.container()
-rowa = st.container()
-col0 = row0.columns(2, gap="medium")
-col1 = row1.columns(3, gap="medium")
-col1a, col2a, col3a = rowa.columns(3, gap="medium")
+# premake containers - making too many...
+rows = [st.container() for i in range(10)]
+cells = [rows[i].columns(3, gap="medium") if i !=0 else rows[i].columns(2, gap="medium") for i in range(len(rows))]
+
+#row0 = st.container()
+#row1 = st.container()
+#rowa = st.container()
+#col0 = row0.columns(2, gap="medium")
+#col1 = row1.columns(3, gap="medium")
+#col1a, col2a, col3a = rowa.columns(3, gap="medium")
 
 #if not "presets" in st.session_state:
 st.session_state["presets"] = {}
@@ -49,6 +53,7 @@ st.session_state["presets"]["Triakis Octahedron (a)"] = (7,31.3997,3,117.2006,6,
 st.session_state["presets"]["Triakis Octahedron (b)"] = (11,31.3997,3,31.3997,3,12)
 st.session_state["presets"]["Tetrakis Hexahedron (a)"] = (6,48.1897,2,83.6206,10,24)
 st.session_state["presets"]["Tetrakis Hexahedron (b)"] = (7,48.1897,2,48.1897,2,12)
+st.session_state["presets"]["Rhombic Dodecahedron"] = (4,109.471,4,70.5288,8,24)
 
 with st.sidebar:
     preset_choice = st.selectbox(
@@ -72,7 +77,7 @@ with st.form("selections"):
             "First Angle",
             format="%.4f",
             value = st.session_state["presets"][preset_choice][1],
-            step=None
+            step=1.
         )
         #y1 = st.number_input(
         #    "First y-offset",
@@ -90,7 +95,7 @@ with st.form("selections"):
             "Second Angle",
             format="%.4f",
             value=st.session_state["presets"][preset_choice][3],
-            step=None
+            step=1.
         )
         #y1p = st.number_input(
         #    "Second y-offset",
@@ -108,32 +113,78 @@ with st.form("selections"):
         submitted = st.form_submit_button("Draw")
 
     if preset_choice == "None" and not submitted:
-        st.write("Enter a query in the sidebar")
+        header.write("Enter a query in the sidebar")
     else:
         y1 = yoffset_list[iy1][3] * x0
         y1p = yoffset_list[iy1p][3] * x0
         ell = (yscale - (y1 + y1p) / y0)/ ell0
+        phi0 = 180 - math.acos(yoffset_list[iy1][0] / yoffset_list[iy1][1]) * 180 / math.pi
+        guide_bool = bool(iy1) and abs(phi0 - angle) > 1
+
+        phi0p = 180 - math.acos(yoffset_list[iy1p][0] / yoffset_list[iy1p][1]) * 180 / math.pi
+        guide_boolp = bool(iy1p) and abs(phi0p - anglep) > 1
         inum = 0
-        with col0[0]:
+        with cells[0][0]:
             st_plots.draw_page(yscale, y0, x0)
             iy = int(yscale * 4)
             a = math.gcd(16, iy)
             frac = f"{iy // a}/{16 // a}"
             st.write(f"{inum}.  Fold a sheet of paper lengthwise by $1/8$ and heightwise by ${frac}$.  To achieve this height, make small creases on the side in successive halves in the order indicated to the left.")
+        with cells[1 + inum // 3][inum % 3]:
             inum += 1
-        with col1[0]:
             st_plots.draw_initial(yscale, y0, x0)
             st.write(f"{inum}.  Crease the paper in fourths lengthwise.")
+        if guide_bool:
+            with cells[1 + inum // 3][inum % 3]:
+                inum += 1
+                crease, direction = st_plots.draw_guide1(yscale, y0, x0, yoffset_list[iy1])
+                st.write(f"{inum}.  {direction}")
+            with cells[1 + inum // 3][inum % 3]:
+                inum += 1
+                st_plots.draw_guide2(yscale, y0, x0, y1, crease)
+                st.write(f"{inum}.  Make a horizon crease going through the intersection of the crease made in step {inum - 1}.")
+        else:
+            crease = None
+        with cells[1 + inum // 3][inum % 3]:
             inum += 1
-        with col1a:
-            st.write(f"Angle: {angle:.3f}$^\circ$")
-            st.write(f"Offset:  {yoffset_list[st.session_state.box1][0:3]}")
-            st_plots.draw_fold(yscale, angle, y1, y0, x0)
-        with col2a:
-            st.write(f"Angle: {anglep:.3f}$^\circ$")
-            st.write(f"Offset:  {yoffset_list[st.session_state.box2][0:3]}")
-            st_plots.draw_fold(yscale, anglep, y1p, y0, x0)
+            st_plots.draw_angle1(yscale, angle, y1, y0, x0, crease, guide_bool)
+            st.write(f"{inum}.  Fold description.")
+        with cells[1 + inum // 3][inum % 3]:
+            inum += 1
+            st_plots.draw_angle2(yscale, angle, y1, y0, x0, guide_bool)
+            st.write(f"{inum}.  Fold.")
+        if guide_boolp:
+            with cells[1 + inum // 3][inum % 3]:
+                inum += 1
+                creasep, directionp = st_plots.draw_guide1(yscale, y0, x0, yoffset_list[iy1p])
+                st.write(f"{inum}.  {directionp}")
+            with cells[1 + inum // 3][inum % 3]:
+                inum += 1
+                st_plots.draw_guide2(yscale, y0, x0, y1p, creasep)
+                st.write(f"{inum}.  Make a horizon crease going through the intersection of the crease made in step {inum - 1}.")
+        else:
+            creasep = None
+        with cells[1 + inum // 3][inum % 3]:
+            inum += 1
+            st_plots.draw_angle1(yscale, anglep, y1p, y0, x0, creasep, guide_boolp)
+            st.write(f"{inum}.  Fold description.")
+        with cells[1 + inum // 3][inum % 3]:
+            inum += 1
+            st_plots.draw_angle2(yscale, anglep, y1p, y0, x0, guide_boolp)
+            st.write(f"{inum}.  Fold.")
+        #with col1a:
+        #    st.write(f"Angle: {angle:.3f}$^\circ$")
+        #    st.write(f"Offset:  {yoffset_list[st.session_state.box1][0:3]}")
+        #    st_plots.draw_fold(yscale, angle, y1, y0, x0)
+        #with col2a:
+        #    st.write(f"Angle: {anglep:.3f}$^\circ$")
+        #    st.write(f"Offset:  {yoffset_list[st.session_state.box2][0:3]}")
+        #    st_plots.draw_fold(yscale, anglep, y1p, y0, x0)
+        header.title(preset_choice)
         header.write(f"Side length: {ell:.3f}")
+        header.write(f"Angles: {angle:.1f}$^\circ$,  {anglep:.1f}$^\circ$")
         header.write(f"Units needed: {st.session_state['presets'][preset_choice][5]}")
+        header.write(f"Additional units: ")
+        header.write("")
 
 ell0 = 1. - 0.5 * x0 / y0 * math.tan(0.5 * math.acos(1. / 3.))
