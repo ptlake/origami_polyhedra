@@ -57,5 +57,4 @@ The added benefit of collecting this on GitHub is that I can share and showcase 
     - Link various units needed for a given polyhedra.
     - Work on writing the fold description for the step that creates the angle.
     - Add units for all Platonic, Archimedean, and Catalan solids to presets.
-    - Add a switch to toggle between a mode that displays the key step in getting the angle and generates all figures necessary to diagram the whole fold.
     - Allow for variable paper sizes, not only the half letter paper proportion I use.
