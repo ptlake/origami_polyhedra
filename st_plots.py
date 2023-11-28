@@ -341,6 +341,11 @@ def draw_angle2(yscale, angle, y1, y0, x0, guide_bool, night_mode):
 
     a = patches.FancyArrowPatch((x3, y3), (x2 + (x3 - x2) * (x2 - 0.5 * x0) / x2, y3 * (x2 - 0.5 * x0) / x2), shrinkA=5, shrinkB=5, connectionstyle="arc3,rad=-.3", color=lc, **kw)
     plt.gca().add_patch(a)
+    a = patches.FancyArrowPatch(
+        (     0, 0.75 * y0p),
+        (x0 / 2, 0.75 * y0p),
+        shrinkA=10, shrinkB=10, connectionstyle="arc3,rad=-.3", color=lc, **kw)
+    plt.gca().add_patch(a)
 
     st.pyplot(fig)
 
@@ -398,6 +403,10 @@ def draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, second_bool):
         [x0 / 4, x0 / 2 + dxp, x0 / 2 + dxp, 0.25 * x0],
         [   y0p,    y0p + dxp,     y1 + dyp,        y2],
         linewidth=1, color=lc)
+    ax.plot(
+        [0.25 * x0, 0.5 * x0 + dxp],
+        [y2, 2 * y2 - y1],
+        linewidth=0.5, color=lc)
     #second layer
     if x3 > 0.5 * x0 + dxp:
         ax.plot(
@@ -627,124 +636,115 @@ def draw_final(yscale, angle, y1, anglep, y1p, y0, x0, guide_bool, guide_boolp, 
         ax.plot([0.5 * x0, 0.25 * x0],
                 [y0p - y1, y0p - y1 - (y4 - y1) * (0.25 * x0) / (x4 - 0.5 * x0)],
                 linewidth=0.5, color=lc, zorder=3)
-        
-    """
-    x_poly = [0.75 * x0, x0 - x2]
-    y_poly = [y0p - y2, y0p]
-    if x3 > 0.75 * x0 and x2 > 0.75 * x0:
-        print()
-    elif x3 > 0.75 * x0:
-        x_poly.extend([0.25 * x0, 0.25 * x0])
-        y_poly.extend([y0p - y3 * (x2 - 0.75 * x0) / (x2 - x3), y0p - y2 - (y2 - y3) * 0.5 * x0 / (0.25 * x0 - x3)])
-    elif x2 > 0.75 * x0:
-        pass
-    else:
-        x_poly.append(x0 - x3)
-        y_poly.append(y0p - y3)
-    ax.fill(x_poly, y_poly, facecolor=lcp, edgecolor=lc, zorder=2)
-    """
-    """
-    #frame bottom
-    if y1 < 0.001:
-        ax.plot([x2, 0.5 * x0 + 0.02 * x0],[0,0], linewidth=1, color=lc)
-    #frame right
-    ax.plot([0.75 * x0, 0.75 * x0],[y0p - y2, 0], linewidth=1, color=lc)
-    #frame top
-    ax.plot([x0 - x2, 0.25 * x0],[y0p, y0p], linewidth=1, color=lc)
-    #frame left
-    ax.plot([0.25 * x0, 0.25 * x0],[y0p, y2], linewidth=1, color=lc)
-
+    # third layer bottom
     if y1 > 0.001:
-        dx = 0.03 * x0 * math.cos(1.75 * math.pi - 2 * phi)
-        dy = 0.03 * x0 * math.sin(1.75 * math.pi - 2 * phi)
-        dxp = -0.02 * x0
+        dx2 = 0.03 * x0 * math.cos(1.75 * math.pi - 2 * phi)
+        dy2 = 0.03 * x0 * math.sin(1.75 * math.pi - 2 * phi)
+        dx1 = -0.02 * x0
         xa, ya = intersect(
-            0.5 * x0 + dxp,       0,
-            0.5 * x0 + dxp,     y0p,
-            x4 + dx, y4 + dy,
-            0.5 * x0 + dx, y1 + dy)
-        dyp = ya - y1
+            0.5 * x0 + dx1,       0,
+            0.5 * x0 + dx1,     y0p,
+            x4 + dx2, y4 + dy2,
+            0.5 * x0 + dx2, y1 + dy2)
+        dy1 = ya - y1
     else:
-        dx = -0.02 * x0
-        dy = 0
-        dxp = -0.02 * x0
-        dyp = 0
-    #top layer
+        dx2 = -0.02 * x0
+        dy2 = 0
+        dx1 = -0.02 * x0
+        dy1 = 0
+    if y1p > 0.001:
+        dx2p = 0.03 * x0 * math.cos(1.75 * math.pi - 2 * phip)
+        dy2p = 0.03 * x0 * math.sin(1.75 * math.pi - 2 * phip)
+        dx1p = -0.02 * x0
+        xa, ya = intersect(
+            0.5 * x0 + dx1p,       0,
+            0.5 * x0 + dx1p,     y0p,
+            x4p + dx2p, y4p + dy2p,
+            0.5 * x0 + dx2p, y1p + dy2p)
+        dy1p = ya - y1p
+    else:
+        dx2p = -0.02 * x0
+        dy2p = 0
+        dx1p = -0.02 * x0
+        dy1p = 0
+    x5 = x4 + dx2
+    y5 = y4 + dy2
+    x6 = 0.5 * x0 + dx1
+    y6 = y1 + dy1
+    x5p = x4p + dx2p
+    y5p = y4p + dy2p
+    x6p = 0.5 * x0 + dx1p
+    y6p = y1p + dy1p
+    x_poly = [x6p, 0.25 * x0]
+    y_poly = [y6p, y2p]
+    if x3p > 0.75 * x0 and x5p > 0.75 * x0:
+        x_poly.extend([0.75 * x0, 0.75 * x0])
+        y_poly.extend([y2p - (y2p - y3p) * 0.5 * x0 / (x3p - 0.25 * x0), y6p + (0.75 * x0 - x6p) * (y6p - y5p) / (x6p - x5p)])
+    elif x3p > 0.75 * x0:
+        x_poly.extend([0.75 * x0, 0.75 * x0 , x5p])
+        y_poly.extend([y2p + (y2p - y3p) * 0.5 * x0 / (0.25 * x0 - x3p), y5p + (y3p - y5p) * (x5p - 0.75 * x0) / (x5p - x3p), y5p])
+    elif x5p > 0.75 * x0:
+        x_poly.extend([x3p, 0.75 * x0, 0.75 * x0])
+        y_poly.extend([y3p, y3p + (y5p - y3p) * (0.75 * x0 - x3p) / (x5p - x3p), y6p + (0.75 * x0 - x6p) * (y6p - y5p) / (x6p - x5p)])
+    else:
+        x_poly.extend([x3p, x5p])
+        y_poly.extend([y3p, y5p])
+    ax.fill(x_poly, y_poly, facecolor=lcp, edgecolor=lc, zorder=4)
+    ax.plot([x6p, 0.25 * x0 + (x3p - 0.25 * x0) * (y2p - y1p) / y2p],
+            [y6p, y2p + (y3p - y2p) * (y2p - y1p) / y2p],
+            linewidth=0.5, color=lc, zorder=5)
+    # third layer top
+    x_poly = [x0 - x6, 0.75 * x0]
+    y_poly = [y0p - y6, y0p - y2]
+    if x3 > 0.75 * x0 and x5 > 0.75 * x0:
+        x_poly.extend([0.25 * x0, 0.25 * x0])
+        y_poly.extend([y0p - y2 + (y2 - y3) * 0.5 * x0 / (x3 - 0.25 * x0), y0p - y6 - (0.75 * x0 - x6) * (y6 - y5) / (x6 - x5)])
+    elif x3 > 0.75 * x0:
+        x_poly.extend([0.25 * x0, 0.25 * x0 , x0 - x5])
+        y_poly.extend([y0p - y2 - (y2 - y3) * 0.5 * x0 / (0.25 * x0 - x3), y0p - y5 - (y3 - y5) * (x5 - 0.75 * x0) / (x5 - x3), y0p - y5])
+    elif x5 > 0.75 * x0:
+        x_poly.extend([x0 - x3, 0.25 * x0, 0.25 * x0])
+        y_poly.extend([y0p - y3, y0p - y3 - (y5 - y3) * (0.75 * x0 - x3) / (x5 - x3), y0p - y6 - (0.75 * x0 - x6) * (y6 - y5) / (x6 - x5)])
+    else:
+        x_poly.extend([x0 - x3, x0 - x5])
+        y_poly.extend([y0p - y3, y0p - y5])
+    ax.fill(x_poly, y_poly, facecolor=lcp, edgecolor=lc, zorder=4)
+    ax.plot([x0 - x6, 0.75 * x0 - (x3 - 0.25 * x0) * (y2 - y1) / y2],
+            [y0p - y6, y0p - y2 - (y3 - y2) * (y2 - y1) / y2],
+            linewidth=0.5, color=lc, zorder=5)
+    # top layer left
+    if x2 < 0.75 * x0:
+        x_poly = [0.25 * x0, x6p, x6p, 0.25 * x0]
+        y_poly = [y0p, y0p + dx1p, y6p, y2p]
+    else:
+        x_poly = [0.25 * x0, x6p - (x6p - 0.25 * x0) * (x0 - x2) / (0.25 * x0), x6p, x6p, 0.25 * x0]
+        y_poly = [y0p - y2 + y2 * 0.5 * x0 / (x2 - 0.25 * x0), y0p + dx1p - dx1p * (x0 - x2) / (0.25 * x0), y0p + dx1p, y6p, y2p]
+    ax.fill(x_poly, y_poly, facecolor=lcp, edgecolor=lc, zorder=6)
+    if x2p < 0.75 * x0:
+        x_poly = [0.75 * x0, x0 - x6, x0 - x6, 0.75 * x0]
+        y_poly = [0, dx1, y0p - y6, y0p - y2]
+    else:
+        x_poly = [0.75 * x0, x0 - x6 + (x6 - 0.25 * x0) * (x0 - x2p) / (0.25 * x0), x0 - x6, x0 - x6, 0.75 * x0]
+        y_poly = [y2p - y2p * 0.5 * x0 / (x2p - 0.25 * x0), dx1 - dx1 * (x0 - x2p) / (0.25 * x0), dx1, y0p - y6, y0p - y2]
+    ax.fill(x_poly, y_poly, facecolor=lcp, edgecolor=lc, zorder=6)
+
+    ax.plot([0.5 * x0, 0.5 * x0],[0, y0p], linewidth=1.5, linestyle='dashed', color=lc, zorder = 7)
     ax.plot(
-        [x0 / 4, x0 / 2 + dxp, x0 / 2 + dxp, 0.25 * x0],
-        [   y0p,    y0p + dxp,     y1 + dyp,        y2],
-        linewidth=1, color=lc)
+        [0.75 * x0, 0.5 * x0 - dx1],
+        [y0p - y2, y0p - 2 * y2 + y1],
+        linewidth=0.5, color=lc, zorder=7)
     ax.plot(
-        [x0 - x0 / 4, x0 - x0 / 2 - dxp, x0 - x0 / 2 - dxp, x0 - 0.25 * x0],
-        [   0,   dxp,   y0p - y1 + dyp,      y0p - y2],
-        linewidth=1, color=lc)
-    #second layer
-    if x3 > 0.5 * x0 + dxp:
-        ax.plot(
-            [x0 / 2 + dxp, x4 + dx, x3],
-            [    y1 + dyp, y4 + dy, y3],
-            linewidth=1, color=lc)
-    else:
-        x3pp, y3pp = intersect(
-            x3, y3,
-            x4 + dx,  y4 + dy,
-            0.5 * x0 + dxp, 0,
-            0.5 * x0 + dxp, y0p)
-        ax.plot(
-            [x0 / 2 + dxp, x4 + dx, x3pp],
-            [    y1 + dyp, y4 + dy, y3pp],
-            linewidth=1, color=lc)
-        
-    #third layer
-    if y1 > 0.001:
-        x5, y5 = intersect(
-            0.25 * x0,       y2,
-            x2,        0,
-            x0 / 2 + dxp, y1 + dyp,
-            x4 + dx,  y4 + dy)
-    else:
-        x5, y5 = intersect(
-                 0.25 * x0, y2,
-                        x2,  0,
-                        x3, y3,
-            0.5 * x0 + dxp, y1)        
-    if x3 > 0.5 * x0 + dxp:
-        ax.plot(
-            [                                       0.5 * x0 + dxp, x3, x2, x5],
-            [y2 + (0.25 * x0 + dxp) / (x3 - 0.25 * x0) * (y3 - y2), y3,  0, y5],
-            linewidth=1, color=lc)
-    else:
-        x3p, y3p = intersect(
-            x3, y3,
-            x2,  0,
-            0.5 * x0 + dxp, 0,
-            0.5 * x0 + dxp, y0p)
-        ax.plot(
-            [ x3p, x2, x5],
-            [ y3p,  0, y5],
-            linewidth=1, color=lc)
-    
-    # horizontal
-    if guide_bool:
-        if 0.25 * x0 + (x3 - 0.25 * x0) * (y2 - y1) / y2 > 0.5 * x0 + dxp:
-            ax.plot([0.5 * x0 + dxp, 0.25 * x0 + (x3 - 0.25 * x0) * (y2 - y1) / y2],[y1 + dyp, y2 + (y3 - y2) * (y2 - y1) / y2], linewidth=0.5, color=lc)
-    # 1/2 line diag
-    if y1 > 0.001:
-        x6, y6 = intersect(
-            0.50 * x0,      y1,
-            x4,      y4,
-            x3,      y3,
-            x4 + dx, y4 + dy)
-        ax.plot([x6, x4],[y6, y4], linewidth=0.5, color=lc)
-    # 1/2 line
-    if x3 < 0.5 * x0:
-        ymin = y3 - (x3 - 0.5 * x0) / (x3 - x2) * y3
-    else:
-        ymin = y2 + 0.25 * x0 / (x3 - 0.25 * x0) * (y3 - y2)
-    ax.plot([0.50 * x0, 0.50 * x0],[ymin, y0p], linewidth=0.5, color=lc)
-    ax.scatter([0],[0], color=lcp)
-    ax.scatter([x0],[y0p], color=lcp)
-    """
+        [0.25 * x0, 0.5 * x0 + dx1p],
+        [y2p, 2 * y2p - y1p],
+        linewidth=0.5, color=lc, zorder=7)
+    ax.plot(
+        [0.75 * x0, 0.5 * x0 - dx1],
+        [y1p, y1p + dx1],
+        linewidth=0.5, color=lc, zorder=7)
+    ax.plot(
+        [0.25 * x0, 0.5 * x0 + dx1p],
+        [y0p - y1, y0p - y1 + dx1p],
+        linewidth=0.5, color=lc, zorder=7)
     st.pyplot(fig)
 
 def draw_fold(yscale, angle, y1, y0, x0, night_mode):

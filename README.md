@@ -52,9 +52,9 @@ The added benefit of collecting this on GitHub is that I can share and showcase 
 - `gallery` needs more pictures!  Group by family and individual.
 
 - Most work will focus on `fold_app.py`.
-    - Complete diagrams.
     - Add a boolean to remove the bottom tab.
     - Link various units needed for a given polyhedra.
     - Work on writing the fold description for the step that creates the angle.
     - Add units for all Platonic, Archimedean, and Catalan solids to presets.
     - Allow for variable paper sizes, not only the half letter paper proportion I use.
+    - Some small angles will create folds that extend over the top left corner and some large angles will extend over the bottom right corner.  The diagrams are jumbled and unphysical in these circumastances.  Beyond saying that it's a good idea to avoid this, perhaps catch it in the code and prevent the horrible diagrams.

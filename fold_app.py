@@ -187,7 +187,7 @@ with st.form("selections"):
             with cells[1 + inum // 3][inum % 3]:
                 inum += 1
                 st_plots.draw_final(yscale, angle, y1, anglep, y1p, y0, x0, guide_bool, guide_boolp, night_mode)
-                st.write(f"{inum}.  Finished unit.")
+                st.write(f"{inum}.  Finished unit.  Make a crease down the center of the unit.")
         else:
             with cells[0][0]:
                 st.write("Sets angle:")
