@@ -1,5 +1,7 @@
 # Origami Wireframe Polyhedra
 
+![A collection of all the Platonic and Archimedean solids](https://github.com/ptlake/origami_polyhedra/blob/main/gallery/all_uniform_polyhedra.jpg)
+
 ## Intro
 
 This work is motivated when I looked into finding a modular origami design for all the uniform polyhedra and didn't find anything comprehensive on my first pass.  I decided upon a wireframe model because of the clean look and I realized that the only alteration that would be needed to fold all the Archimedean solids would be to change the angle that the units come together.  I also knew that these units have been designed to create a variety of polyhedra such as found in Tomoko Fuse's "Open Frame II Unit" in **Unit Origami: Multidimensional Transformations**, or David Mitchell's "Outline Dodecahedron" in **Mathematical Origami**, or the model for Thomas Hull's "Five Intersecting Tetrahedra".  I was a little intimidated on how to fold the angles correctly and exactly, until I noticed how not even the angles for the "Outline Dodecahedron" in **Mathematical Origami** are mathematically exact.  Knowing the quality of that model with only using a simple but approximate angle convinced me that finding the mathematically exact folds for these polyhedra was misguided.
@@ -45,12 +47,6 @@ The added benefit of collecting this on GitHub is that I can share and showcase 
 
 ## Future tasks / known shortcomings
 
-- `polyhedra.pdf` needs work.  A consistent formatting of image sizes needs to be implemented.  There are no directions of how to join units.  Notes should be added to clarify some aspects.  Like how tearing the tab in for the triangle faces is necessary for Platonic solids as opposed to Archimedean solids.  Also forewarn the reader that the snub polyhedra require more patience to assemble.
-
-- `catalan` needs to be documented and cleaned.
-
-- `gallery` needs more pictures!  Group by family and individual.
-
 - Most work will focus on `fold_app.py`.
     - Add a boolean to remove the bottom tab.
     - Link various units needed for a given polyhedra.
@@ -58,3 +54,8 @@ The added benefit of collecting this on GitHub is that I can share and showcase 
     - Add units for all Platonic, Archimedean, and Catalan solids to presets.
     - Allow for variable paper sizes, not only the half letter paper proportion I use.
     - Some small angles will create folds that extend over the top left corner and some large angles will extend over the bottom right corner.  The diagrams are jumbled and unphysical in these circumastances.  Beyond saying that it's a good idea to avoid this, perhaps catch it in the code and prevent the horrible diagrams.
+
+- `catalan` needs to be documented and cleaned.
+
+- `gallery` needs more pictures!  Group by family and individual.
+
