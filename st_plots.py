@@ -349,8 +349,7 @@ def draw_angle2(yscale, angle, y1, y0, x0, guide_bool, night_mode):
 
     st.pyplot(fig)
 
-
-def draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, second_bool):
+def draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, tear_opt, second_bool):
     if night_mode:
         plt.style.use('dark_background')
         lc = "white"
@@ -483,7 +482,7 @@ def draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, second_bool):
         ymin = y3 - (x3 - 0.75 * x0) / (x3 - x2) * y3
     else:
         ymin = 0
-    if second_bool:
+    if second_bool and tear_opt == "None":
         ax.plot(
             [0.75 * x0, 0.75 * x0],
             [        0,       y0p],
@@ -492,7 +491,13 @@ def draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, second_bool):
         ax.plot([0.75 * x0, 0.75 * x0], [ymin, y0p], linewidth=0.5, color=lc)
         if x3 > 0.75 * x0 and x2 < 0.75 * x0:
             ax.plot([0.75 * x0, 0.75 * x0], [0, y3 - (x3 - 0.75 * x0) / (x3 - x2) * y3], linewidth=0.5, color=lc)
-    if second_bool:
+    if tear_opt != "None":
+        a = patches.FancyArrowPatch(
+            (x0 / 2, 0.75 * y0p),
+            (     0, 0.75 * y0p),
+            shrinkA=10, shrinkB=10, connectionstyle="arc3,rad=.3", color=lc, **kw)
+        plt.gca().add_patch(a)        
+    elif second_bool:
         a = patches.FancyArrowPatch(
             (    x0, 0.75 * y0p),
             (x0 / 2, 0.75 * y0p),
@@ -518,6 +523,94 @@ def draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, second_bool):
 
     st.pyplot(fig)
 
+def draw_tear(yscale, angle, y1, y0, x0, night_mode, tear_opt, second_bool):
+    if night_mode:
+        plt.style.use('dark_background')
+        lc = "white"
+    else:
+        plt.style.use('default')
+        lc = "black"
+
+    y0p = y0 * yscale
+
+    dy = 0.1 * x0
+    
+    phi = 0.5 * math.pi - 0.5 * angle * math.pi / 180.
+    y2 = y1 + 0.5 * x0 * math.tan(phi)
+    x2 = 0.5 * x0 + y1 / math.tan(phi)
+    x3 = x2 * (1. - math.cos(2. * phi))
+    y3 = x2 * math.sin(2. * phi)
+
+    fig, ax = plt.subplots(figsize=(2 * x0, 2 * y0 * yscale))
+    ax.axis('off')
+    ax.set_aspect(aspect='equal')
+    if tear_opt == "All":
+        ycut = y1
+    else:
+        ycut = 0.5 * y1
+    #frame bottom
+    ax.plot([0, x0],[ycut,ycut], linewidth=1, color=lc)
+    #frame right
+    ax.plot([x0, x0],[ycut, y0p], linewidth=1, color=lc)
+    #frame top
+    ax.plot([x0, 0],[y0p, y0p], linewidth=1, color=lc)
+    #frame left
+    ax.plot([0, 0],[y0p, ycut], linewidth=1, color=lc)
+    
+    #frame bottom
+    ax.plot([0, x0],[ycut - dy, ycut - dy], linewidth=1, color=lc)
+    #frame right
+    ax.plot([x0, x0],[ycut - dy, -dy], linewidth=1, color=lc)
+    #frame top
+    ax.plot([x0, 0],[-dy, -dy], linewidth=1, color=lc)
+    #frame left
+    ax.plot([0, 0],[-dy, ycut - dy], linewidth=1, color=lc)
+
+    # horizontal
+    if tear_opt != "All":
+        ax.plot([0, x0],[y1, y1], linewidth=0.5, color=lc)
+    
+    # 1/4 line vertical
+    for i in range(2, 4):
+        ax.plot([i * 0.25 * x0, i * 0.25 * x0],[ycut, y0p], linewidth=0.5, color=lc)
+        ax.plot([i * 0.25 * x0, i * 0.25 * x0],[ycut-dy, -dy], linewidth=0.5, color=lc)
+
+    ax.text(-0.2 * x0, ycut - 1.2 * dy, u"\u2702",**{'size':30})
+
+    if second_bool:
+        ax.plot([0.25 * x0, 0.25 * x0], [ycut, (y2 + y1) / 2], linewidth=1.5, color=lc, linestyle='dashdot')
+        ax.plot([0.25 * x0, 0.25 * x0], [(y2 + y1) / 2, y0p], linewidth=1.5, color=lc, linestyle='dashed')
+        ax.plot([0.25 * x0, 0.25 * x0], [ycut-dy, -dy], linewidth=0.5, color=lc)
+        #fold
+        ax.plot([0.25 * x0, 0],[(y2 + y1) / 2, y2], linewidth=0.5, color=lc)
+        ax.plot([0.5 * x0, 0.25 * x0],[y1, (y2 + y1) / 2], linewidth=1.5, color=lc, linestyle='dashed')
+        ax.plot([0, 0.25 * x0], [y1, (y2 + y1) / 2], linewidth=1.5, color=lc, linestyle='dashed')
+        a = patches.FancyArrowPatch(
+            (     0, 0.75 * y0p),
+            (x0 / 2, 0.75 * y0p),
+            shrinkA=10, shrinkB=10, connectionstyle="arc3,rad=-.3", color=lc, **kw)
+        plt.gca().add_patch(a)
+    else:
+        ax.plot([0.25 * x0, 0.25 * x0],[ycut, y0p], linewidth=0.5, color=lc)
+        ax.plot([0.25 * x0, 0.25 * x0],[ycut-dy, -dy], linewidth=0.5, color=lc)
+        #fold
+        ax.plot([0.5 * x0, 0],[y1, y2], linewidth=0.5, color=lc)
+        ax.plot([0, 0.25 * x0], [y1, (y2 + y1) / 2], linewidth=0.5, color=lc)
+    
+    if not second_bool:
+        b = patches.FancyArrowPatch(
+            (x0 / 8   + 0.08 * x0 * math.sin(1099/1100 * 2 * math.pi), 0.9 * y0p + 0.08 * x0 * math.cos(1099/1100 * 2 * math.pi)),
+            (x0 / 8   + 0.08 * x0 * math.sin(1100/1100 * 2 * math.pi), 0.9 * y0p + 0.08 * x0 * math.cos(1100/1100 * 2 * math.pi)),
+            shrinkA=10, shrinkB=10, connectionstyle="arc3,rad=.3", color=lc, **kw)
+        plt.gca().add_patch(b)
+        ax.plot(
+            [ x0 / 8   + 0.08 * x0 * math.sin(i/1100 * 2 * math.pi) for i in range(100,1000)],
+            [0.9 * y0p + 0.08 * x0 * math.cos(i/1100 * 2 * math.pi) for i in range(100,1000)],
+            color=lc
+        )
+
+    st.pyplot(fig)
+    
 def draw_final(yscale, angle, y1, anglep, y1p, y0, x0, guide_bool, guide_boolp, night_mode):
     if night_mode:
         plt.style.use('dark_background')

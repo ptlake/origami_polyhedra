@@ -88,6 +88,12 @@ with st.form("selections"):
             format_func=lambda x: f'{yoffset_list[x][3]:6.4f}',
             key="box1"
         )
+        tear_opt = st.radio(
+            "First side tear",
+            options=["None","Half","All"],
+            index=0,
+            horizontal=True
+        )
         anglep = st.number_input(
             "Second Angle",
             format="%.4f",
@@ -106,6 +112,12 @@ with st.form("selections"):
             format_func=lambda x: f'{yoffset_list[x][3]:6.4f}',
             key="box2"
         )
+        tear_optp = st.radio(
+            "Second side tear",
+            options=["None","Half","All"],
+            index=0,
+            horizontal=True
+        )
         
         submitted = st.form_submit_button("Draw")
 
@@ -116,6 +128,11 @@ with st.form("selections"):
         y1p = yoffset_list[iy1p][3] * x0
         ell = (yscale - (y1 + y1p) / y0)/ ell0
         if full_bool:
+            if tear_opt != "None":
+                guide_bool = True
+            if tear_optp != "None":
+                guide_bool = True
+            
             if iy1:
                 phi0 = 180 - math.acos(yoffset_list[iy1][0] / yoffset_list[iy1][1]) * 180 / math.pi
             else:
@@ -146,6 +163,7 @@ with st.form("selections"):
                     inum += 1
                     st_plots.draw_guide2(yscale, y0, x0, y1, crease, night_mode)
                     st.write(f"{inum}.  Make a horizon crease going through the intersection of the crease made in step {inum - 1}.")
+                    inum_yoffset = inum
             else:
                 crease = None
             with cells[1 + inum // 3][inum % 3]:
@@ -158,9 +176,25 @@ with st.form("selections"):
                 st.write(f"{inum}.  Fold.")
             with cells[1 + inum // 3][inum % 3]:
                 inum += 1
-                st_plots.draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, 0)
-                st.write(f"{inum}.  Unfold completely and rotate 180$^\circ$.")
-                inum0 = inum
+                st_plots.draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, tear_opt, 0)
+                if tear_opt == "None":
+                    st.write(f"{inum}.  Unfold completely and rotate 180$^\circ$.")
+                else:
+                    st.write(f"{inum}.  Unfold completely.")
+                inum_creases = inum
+            if tear_opt != "None":
+                with cells[1 + inum // 3][inum % 3]:
+                    inum += 1
+                    st_plots.draw_tear(yscale, angle, y1, y0, x0, night_mode, tear_opt, 0)
+                    if tear_opt == "All":
+                        st.write(f"{inum}.  Tear along the fold formed in step {inum_yoffset}. Rotate 180$^\circ$.")
+                        yscale = yscale - y1 / y0
+                        y1 = 0
+                    else:
+                        st.write(f"{inum}.  Tear horizontally half way between the bottom and the fold formed in step {inum_yoffset}. Rotate 180$^\circ$.")
+                        yscale = yscale - 0.5 * y1 / y0
+                        y1 /= 2
+                
             if guide_boolp:
                 with cells[1 + inum // 3][inum % 3]:
                     inum += 1
@@ -170,6 +204,7 @@ with st.form("selections"):
                     inum += 1
                     st_plots.draw_guide2(yscale, y0, x0, y1p, creasep, night_mode)
                     st.write(f"{inum}.  Make a horizon crease going through the intersection of the crease made in step {inum - 1}.")
+                    inum_yoffsetp = inum
             else:
                 creasep = None
             with cells[1 + inum // 3][inum % 3]:
@@ -182,8 +217,28 @@ with st.form("selections"):
                 st.write(f"{inum}.  Fold.")
             with cells[1 + inum // 3][inum % 3]:
                 inum += 1
-                st_plots.draw_angle3(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode, 1)
-                st.write(f"{inum}.  Refold the right side from creases made through step {inum0}.")
+                st_plots.draw_angle3(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode, tear_optp, 1)
+                if tear_optp == "None":
+                    st.write(f"{inum}.  Refold the right side from creases made through step {inum_creases}.")
+                else:
+                    st.write(f"{inum}.  Unfold completely.")
+                    
+            if tear_optp != "None":
+                with cells[1 + inum // 3][inum % 3]:
+                    inum += 1
+                    st_plots.draw_tear(yscale, anglep, y1p, y0, x0, night_mode, tear_optp, 1)
+                    if tear_optp == "All":
+                        st.write(f"{inum}.  Tear along the fold formed in step {inum_yoffsetp}. Refold creases.")
+                        yscale = yscale - y1p / y0
+                        y1p = 0
+                    else:
+                        st.write(f"{inum}.  Tear horizontally half way between the bottom and the fold formed in step {inum_yoffsetp}.  Refold creases.")
+                        yscale = yscale - 0.5 * y1p / y0
+                        y1p /= 2
+                with cells[1 + inum // 3][inum % 3]:
+                    inum += 1
+                    st_plots.draw_angle3(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode, "None", 1)
+                    st.write(f"{inum}.  Refold the right side from creases made through step {inum_creases}.")
             with cells[1 + inum // 3][inum % 3]:
                 inum += 1
                 st_plots.draw_final(yscale, angle, y1, anglep, y1p, y0, x0, guide_bool, guide_boolp, night_mode)
@@ -204,14 +259,6 @@ with st.form("selections"):
                 with cells[3][1]:
                     crease, direction = st_plots.draw_guide1(yscale, y0, x0, yoffset_list[iy1p], night_mode)
 
-        #with col1a:
-        #    st.write(f"Angle: {angle:.3f}$^\circ$")
-        #    st.write(f"Offset:  {yoffset_list[st.session_state.box1][0:3]}")
-        #    st_plots.draw_fold(yscale, angle, y1, y0, x0)
-        #with col2a:
-        #    st.write(f"Angle: {anglep:.3f}$^\circ$")
-        #    st.write(f"Offset:  {yoffset_list[st.session_state.box2][0:3]}")
-        #    st_plots.draw_fold(yscale, anglep, y1p, y0, x0)
         header.title(preset_choice)
         header.write(f"Side length: {ell:.3f}")
         header.write(f"Angles: {angle:.1f}$^\circ$,  {anglep:.1f}$^\circ$")

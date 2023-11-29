@@ -48,7 +48,7 @@ The added benefit of collecting this on GitHub is that I can share and showcase 
 ## Future tasks / known shortcomings
 
 - Most work will focus on `fold_app.py`.
-    - Add a boolean to remove the bottom tab.
+    - Don't repeat steps for symmetric units.
     - Link various units needed for a given polyhedra.
     - Work on writing the fold description for the step that creates the angle.
     - Add units for all Platonic, Archimedean, and Catalan solids to presets.
