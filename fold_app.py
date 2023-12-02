@@ -4,118 +4,96 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 import st_plots
+import st_funcs
 
+# Paper size
 x0 = 11.7 / 8.
 y0 = 8.3 / 4.
-ell0 = 1. - 0.5 * x0 / y0 * math.tan(0.5 * math.acos(1. / 3.))
-
-def get_yoffset():
-    t=[(0,0,0,0)]
-    for den in range(5):
-        for num in range(-den+1,den):
-            if math.gcd(num,den) == 1 and den - num < 5:
-                if num < 0:
-                    xmax = 5 + num
-                else:
-                    xmax = 5
-                for x in range(1,xmax):
-                    y = x/4 * math.tan(0.5 * math.acos(num/den))
-                    t.append((num, den, x, y))
-    t.sort(key=lambda x:x[3])
-    return t
+ell0 = 1. - 0.5 * x0 / y0 * math.tan(0.5 * math.acos(1. / 3.))    
     
-
-
-def update_slider():
-    st.session_state.slider = st.session_state["presets"][st.session_state.preset_choice][0] / 4.
-
-    
-yoffset_list = get_yoffset()
+yoffset_list = st_funcs.get_yoffset()
 header = st.container()
 # premake containers - making too many...
 rows = [st.container() for i in range(10)]
 cells = [rows[i].columns(3, gap="medium") if i !=0 else rows[i].columns(2, gap="medium") for i in range(len(rows))]
 
-st.session_state["presets"] = {}
-st.session_state["presets"]["None"] = (4,90.,0,90.,0,-1)
-st.session_state["presets"]["Tetrahedron"] = (4,60.,4,60.,4,6)
-st.session_state["presets"]["Triakis Tetrahedron (a)"] = (6,33.5573,3,112.8854,1,12)
-st.session_state["presets"]["Triakis Tetrahedron (b)"] = (10,33.5573,3,33.5573,3,6)
-st.session_state["presets"]["Triakis Octahedron (a)"] = (7,31.3997,3,117.2006,6,24)
-st.session_state["presets"]["Triakis Octahedron (b)"] = (11,31.3997,3,31.3997,3,12)
-st.session_state["presets"]["Tetrakis Hexahedron (a)"] = (6,48.1897,2,83.6206,10,24)
-st.session_state["presets"]["Tetrakis Hexahedron (b)"] = (7,48.1897,2,48.1897,2,12)
-st.session_state["presets"]["Rhombic Dodecahedron"] = (4,109.471,4,70.5288,8,24)
-st.session_state["presets"]["Disdyakis Dodecahedron (a)"] = (6,55.025,8,87.202,10,24)
-st.session_state["presets"]["Disdyakis Dodecahedron (b)"] = (7,87.202,10,37.773,1,24)
-st.session_state["presets"]["Disdyakis Dodecahedron (c)"] = (8,55.025,8,37.773,1,24)
+#st.session_state["presets"] = {}
+#st.session_state["presets"]["None"] = (4,90.,0,90.,0,-1)
+#st.session_state["presets"]["Tetrahedron"] = (4,60.,4,60.,4,6)
+#st.session_state["presets"]["Triakis Tetrahedron (a)"] = (6,33.5573,3,112.8854,1,12)
+#st.session_state["presets"]["Triakis Tetrahedron (b)"] = (10,33.5573,3,33.5573,3,6)
+#st.session_state["presets"]["Triakis Octahedron (a)"] = (7,31.3997,3,117.2006,6,24)
+#st.session_state["presets"]["Triakis Octahedron (b)"] = (11,31.3997,3,31.3997,3,12)
+#st.session_state["presets"]["Tetrakis Hexahedron (a)"] = (6,48.1897,2,83.6206,10,24)
+#st.session_state["presets"]["Tetrakis Hexahedron (b)"] = (7,48.1897,2,48.1897,2,12)
+#st.session_state["presets"]["Rhombic Dodecahedron"] = (4,109.471,4,70.5288,8,24)
+#st.session_state["presets"]["Disdyakis Dodecahedron (a)"] = (6,55.025,8,87.202,10,24)
+#st.session_state["presets"]["Disdyakis Dodecahedron (b)"] = (7,87.202,10,37.773,1,24)
+#st.session_state["presets"]["Disdyakis Dodecahedron (c)"] = (8,55.025,8,37.773,1,24)
+
+# read presets
+st.session_state["presets"] = st_funcs.read_presets()
+if "default_preset" not in st.session_state:
+    st.session_state.default_preset = 0
+
 
 with st.sidebar:
     preset_choice = st.selectbox(
         "Presets",
         options=st.session_state["presets"].keys(),
-        on_change=update_slider,
+        index=st.session_state["default_preset"],
         key="preset_choice"
     )
-    full_bool = st.toggle("Full instructions", on_change=update_slider)
-    night_mode = st.toggle("Night mode", on_change=update_slider)
+    full_bool = st.toggle("Full instructions")
+    night_mode = st.toggle("Night mode")
     
 with st.form("selections"):
     with st.sidebar:
+        current_preset = st.session_state["presets"][preset_choice]
         yscale = st.slider(
             "y-scale",
             min_value=0.25,
             max_value=4.00,
-            value = st.session_state["presets"][preset_choice][0] / 4.,
+            value = current_preset['paper size'] / 4.,
             step=0.25,
             key='slider'
         )
         angle = st.number_input(
             "First Angle",
             format="%.4f",
-            value = st.session_state["presets"][preset_choice][1],
+            value = current_preset['angle 1'],
             step=1.
         )
-        #y1 = st.number_input(
-        #    "First y-offset",
-        #    format="%.4f",
-        #    step=None
-        #)
         iy1 = st.select_slider(
             "First y-offset",
             options=range(len(yoffset_list)),
-            value=st.session_state["presets"][preset_choice][2],
+            value=current_preset['y-offset 1'],
             format_func=lambda x: f'{yoffset_list[x][3]:6.4f}',
             key="box1"
         )
         tear_opt = st.radio(
             "First side tear",
             options=["None","Half","All"],
-            index=0,
+            index=current_preset['tear 1'],
             horizontal=True
         )
         anglep = st.number_input(
             "Second Angle",
             format="%.4f",
-            value=st.session_state["presets"][preset_choice][3],
+            value=current_preset['angle 2'],
             step=1.
         )
-        #y1p = st.number_input(
-        #    "Second y-offset",
-        #    format="%.4f",
-        #    step=None
-        #)
         iy1p = st.select_slider(
             "Second y-offset",
             options=range(len(yoffset_list)),
-            value=st.session_state["presets"][preset_choice][4],
+            value=current_preset['y-offset 2'],
             format_func=lambda x: f'{yoffset_list[x][3]:6.4f}',
             key="box2"
         )
         tear_optp = st.radio(
             "Second side tear",
             options=["None","Half","All"],
-            index=0,
+            index=current_preset['tear 2'],
             horizontal=True
         )
         
@@ -124,6 +102,11 @@ with st.form("selections"):
     if preset_choice == "None" and not submitted:
         header.write("Enter a query in the sidebar")
     else:
+        if abs(angle - anglep) < 0.01 and iy1 == iy1p and tear_opt == tear_optp:
+            symm_bool = True
+        else:
+            symm_bool = False
+        
         y1 = yoffset_list[iy1][3] * x0
         y1p = yoffset_list[iy1p][3] * x0
         ell = (yscale - (y1 + y1p) / y0)/ ell0
@@ -169,7 +152,7 @@ with st.form("selections"):
             with cells[1 + inum // 3][inum % 3]:
                 inum += 1
                 st_plots.draw_angle1(yscale, angle, y1, y0, x0, crease, guide_bool, night_mode)
-                st.write(f"{inum}.  Fold description.")
+                st.write(f"{inum}.  {current_preset['fold description 1']}")
             with cells[1 + inum // 3][inum % 3]:
                 inum += 1
                 st_plots.draw_angle2(yscale, angle, y1, y0, x0, guide_bool, night_mode)
@@ -178,67 +161,92 @@ with st.form("selections"):
                 inum += 1
                 st_plots.draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, tear_opt, 0)
                 if tear_opt == "None":
-                    st.write(f"{inum}.  Unfold completely and rotate 180$^\circ$.")
+                    if symm_bool:
+                        st.write(f"{inum}.  Unfold completely and rotate 180$^\circ$. Repeat steps 2 to {inum - 1}")
+                    else:
+                        st.write(f"{inum}.  Unfold completely and rotate 180$^\circ$.")
                 else:
                     st.write(f"{inum}.  Unfold completely.")
                 inum_creases = inum
             if tear_opt != "None":
                 with cells[1 + inum // 3][inum % 3]:
                     inum += 1
-                    st_plots.draw_tear(yscale, angle, y1, y0, x0, night_mode, tear_opt, 0)
-                    if tear_opt == "All":
-                        st.write(f"{inum}.  Tear along the fold formed in step {inum_yoffset}. Rotate 180$^\circ$.")
-                        yscale = yscale - y1 / y0
-                        y1 = 0
+                    if symm_bool:
+                        st_plots.draw_tear(yscale, angle, y1, y0, x0, night_mode, tear_opt, 1)
+                        if tear_opt == "All":
+                            st.write(f"{inum}.  Tear along the fold formed in step {inum_yoffset}. Refold creases.")
+                            yscale = yscale - y1 / y0
+                            y1 = 0
+                        else:
+                            st.write(f"{inum}.  Tear horizontally half way between the bottom and the fold formed in step {inum_yoffset}. Rotate 180$^\circ$.")
+                            yscale = yscale - 0.5 * y1 / y0
+                            y1 /= 2
                     else:
-                        st.write(f"{inum}.  Tear horizontally half way between the bottom and the fold formed in step {inum_yoffset}. Rotate 180$^\circ$.")
-                        yscale = yscale - 0.5 * y1 / y0
-                        y1 /= 2
-                
-            if guide_boolp:
-                with cells[1 + inum // 3][inum % 3]:
-                    inum += 1
-                    creasep, directionp = st_plots.draw_guide1(yscale, y0, x0, yoffset_list[iy1p], night_mode)
-                    st.write(f"{inum}.  {directionp}")
-                with cells[1 + inum // 3][inum % 3]:
-                    inum += 1
-                    st_plots.draw_guide2(yscale, y0, x0, y1p, creasep, night_mode)
-                    st.write(f"{inum}.  Make a horizon crease going through the intersection of the crease made in step {inum - 1}.")
-                    inum_yoffsetp = inum
+                        st_plots.draw_tear(yscale, angle, y1, y0, x0, night_mode, tear_opt, 0)
+                        if tear_opt == "All":
+                            st.write(f"{inum}.  Tear along the fold formed in step {inum_yoffset}. Rotate 180$^\circ$.")
+                            yscale = yscale - y1 / y0
+                            y1 = 0
+                        else:
+                            st.write(f"{inum}.  Tear horizontally half way between the bottom and the fold formed in step {inum_yoffset}. Rotate 180$^\circ$.")
+                            yscale = yscale - 0.5 * y1 / y0
+                            y1 /= 2
+                    if symm_bool:
+                        with cells[1 + inum // 3][inum % 3]:
+                            inum += 1
+                            st_plots.draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, tear_opt, 0)
+                            st.write(f"{inum}.  Unfold completely and rotate 180$^\circ$. Repeat steps 2 to {inum - 1}")
+
+            if symm_bool:
+                if tear_opt == "All":
+                    yscale = yscale - y1 / y0
+                    y1p = 0
+                elif tear_opt == "Half":
+                    yscale = yscale - 0.5 * y1 / y0
+                    y1p /= 2
+
             else:
-                creasep = None
-            with cells[1 + inum // 3][inum % 3]:
-                inum += 1
-                st_plots.draw_angle1(yscale, anglep, y1p, y0, x0, creasep, guide_boolp, night_mode)
-                st.write(f"{inum}.  Fold description.")
-            with cells[1 + inum // 3][inum % 3]:
-                inum += 1
-                st_plots.draw_angle2(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode)
-                st.write(f"{inum}.  Fold.")
-            with cells[1 + inum // 3][inum % 3]:
-                inum += 1
-                st_plots.draw_angle3(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode, tear_optp, 1)
-                if tear_optp == "None":
-                    st.write(f"{inum}.  Refold the right side from creases made through step {inum_creases}.")
+                if guide_boolp:
+                    with cells[1 + inum // 3][inum % 3]:
+                        inum += 1
+                        creasep, directionp = st_plots.draw_guide1(yscale, y0, x0, yoffset_list[iy1p], night_mode)
+                        st.write(f"{inum}.  {directionp}")
+                    with cells[1 + inum // 3][inum % 3]:
+                        inum += 1
+                        st_plots.draw_guide2(yscale, y0, x0, y1p, creasep, night_mode)
+                        st.write(f"{inum}.  Make a horizon crease going through the intersection of the crease made in step {inum - 1}.")
+                        inum_yoffsetp = inum
                 else:
-                    st.write(f"{inum}.  Unfold completely.")
+                    creasep = None
+                with cells[1 + inum // 3][inum % 3]:
+                    inum += 1
+                    st_plots.draw_angle1(yscale, anglep, y1p, y0, x0, creasep, guide_boolp, night_mode)
+                    st.write(f"{inum}.  Fold description.")
+                with cells[1 + inum // 3][inum % 3]:
+                    inum += 1
+                    st_plots.draw_angle2(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode)
+                    st.write(f"{inum}.  Fold.")
                     
-            if tear_optp != "None":
-                with cells[1 + inum // 3][inum % 3]:
-                    inum += 1
-                    st_plots.draw_tear(yscale, anglep, y1p, y0, x0, night_mode, tear_optp, 1)
-                    if tear_optp == "All":
-                        st.write(f"{inum}.  Tear along the fold formed in step {inum_yoffsetp}. Refold creases.")
-                        yscale = yscale - y1p / y0
-                        y1p = 0
-                    else:
-                        st.write(f"{inum}.  Tear horizontally half way between the bottom and the fold formed in step {inum_yoffsetp}.  Refold creases.")
-                        yscale = yscale - 0.5 * y1p / y0
-                        y1p /= 2
-                with cells[1 + inum // 3][inum % 3]:
-                    inum += 1
-                    st_plots.draw_angle3(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode, "None", 1)
-                    st.write(f"{inum}.  Refold the right side from creases made through step {inum_creases}.")
+                if tear_optp != "None":
+                    with cells[1 + inum // 3][inum % 3]:
+                        inum += 1
+                        st_plots.draw_angle3(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode, tear_optp, 1)
+                        st.write(f"{inum}.  Unfold completely.")
+                    with cells[1 + inum // 3][inum % 3]:
+                        inum += 1
+                        st_plots.draw_tear(yscale, anglep, y1p, y0, x0, night_mode, tear_optp, 1)
+                        if tear_optp == "All":
+                            st.write(f"{inum}.  Tear along the fold formed in step {inum_yoffsetp}. Refold creases.")
+                            yscale = yscale - y1p / y0
+                            y1p = 0
+                        else:
+                            st.write(f"{inum}.  Tear horizontally half way between the bottom and the fold formed in step {inum_yoffsetp}.  Refold creases.")
+                            yscale = yscale - 0.5 * y1p / y0
+                            y1p /= 2
+            with cells[1 + inum // 3][inum % 3]:
+                inum += 1
+                st_plots.draw_angle3(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode, "None", 1)
+                st.write(f"{inum}.  Refold the right side from creases made through step {inum_creases}.")
             with cells[1 + inum // 3][inum % 3]:
                 inum += 1
                 st_plots.draw_final(yscale, angle, y1, anglep, y1p, y0, x0, guide_bool, guide_boolp, night_mode)
@@ -259,13 +267,19 @@ with st.form("selections"):
                 with cells[3][1]:
                     crease, direction = st_plots.draw_guide1(yscale, y0, x0, yoffset_list[iy1p], night_mode)
 
-        header.title(preset_choice)
-        header.write(f"Side length: {ell:.3f}")
-        header.write(f"Angles: {angle:.1f}$^\circ$,  {anglep:.1f}$^\circ$")
-        if preset_choice != "None":
-            header.write(f"Units needed: {st.session_state['presets'][preset_choice][5]}")
-            header.write(f"Additional units: ")
-        header.write("")
-        
+        with header:
+            st.title(preset_choice)
+            st.write(f"Side length: {ell:.3f}")
+            st.write(f"Angles: {angle:.1f}$^\circ$,  {anglep:.1f}$^\circ$")
+            if preset_choice != "None":
+                st.write(f"Units needed: {current_preset['units needed']}")
+                st.write(f"Additional units: ")
+            if not current_preset['additional units']:
+                st.write("N/A")
+            for unit in current_preset['additional units']:
+                if st.button(unit):
+                    st.session_state['default_preset'] = list(st.session_state["presets"].keys()).index(unit)
+                    st.rerun()
+
 
 ell0 = 1. - 0.5 * x0 / y0 * math.tan(0.5 * math.acos(1. / 3.))

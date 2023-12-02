@@ -32,9 +32,9 @@ The added benefit of collecting this on GitHub is that I can share and showcase 
 
 ## Contents
 
-- `polyhedra.pdf` Instructions on folding units for polyhedra with regular polygonal faces - i.e. Platonic, Archimedean, and Johnson solids.
+- `fold_app.py` Code for a Streamlit app to generate instructions for polyhedra that I have folded as well as a testbed tp developing arbitrary units.
 
-- `fold_app.py` Code for a Streamlit app to generate instructions for both defined polyhedra and arbitrary units.
+- `polyhedra.pdf` Instructions on folding units for polyhedra with regular polygonal faces - i.e. Platonic, Archimedean, and Johnson solids.
 
 - `latex` Folder containing the $\LaTeX$ script to generate `polyhedra.pdf`
 
@@ -48,8 +48,7 @@ The added benefit of collecting this on GitHub is that I can share and showcase 
 ## Future tasks / known shortcomings
 
 - Most work will focus on `fold_app.py`.
-    - Don't repeat steps for symmetric units.
-    - Link various units needed for a given polyhedra.
+    - The presets don't always revert back to original values.
     - Work on writing the fold description for the step that creates the angle.
     - Add units for all Platonic, Archimedean, and Catalan solids to presets.
     - Allow for variable paper sizes, not only the half letter paper proportion I use.

@@ -4,20 +4,21 @@
         {
             "name": "Tetrahedron",
             "paper size": 4,
-            "Angle 1": 60.0,
-            "y-cutoff 1": 4,
+            "angle 1": 60.0,
+            "y-offset 1": 4,
             "tear 1": 2,
-            "Angle 2": 60.0,
-            "y-cutoff 2": 4,
+            "angle 2": 60.0,
+            "y-offset 2": 4,
             "tear 2": 2,
             "symmetric": true,
             "fold description 1": "Fold the left point of the horizontal crease to the $3/4$ line.",
-            "fold ref 1a": [0.  , 0.1768],
-            "fold ref 1b": [0.75, 0.6098]
+            "fold ref 1a": [0.0 , 0.1768],
+            "fold ref 1b": [0.75, 0.6098],
             "fold description 2": "Fold the left point of the horizontal crease to the $3/4$ line.",
-            "fold ref 2a": [0.  , 0.1768],
+            "fold ref 2a": [0.0 , 0.1768],
             "fold ref 2b": [0.75, 0.6098],
-            "units needed": 6
+            "units needed": 6,
+            "additional units": []
         }
     ]
 }
