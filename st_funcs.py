@@ -29,4 +29,5 @@ def read_presets():
         f.close()
         for unit in data['units']:
             presets[unit['name']] = unit
+    
     return presets

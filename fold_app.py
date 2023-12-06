@@ -32,75 +32,104 @@ cells = [rows[i].columns(3, gap="medium") if i !=0 else rows[i].columns(2, gap="
 #st.session_state["presets"]["Disdyakis Dodecahedron (c)"] = (8,55.025,8,37.773,1,24)
 
 # read presets
-st.session_state["presets"] = st_funcs.read_presets()
+if "presets" not in st.session_state:
+    st.session_state["presets"] = st_funcs.read_presets()
 if "default_preset" not in st.session_state:
-    st.session_state.default_preset = 0
+    st.session_state["default_preset"] = 0
+if "prev_preset" not in st.session_state:
+    st.session_state["prev_preset"] = 0
+
 
 
 with st.sidebar:
+    preset_bool = st.toggle("Use Presets")
+    full_bool = st.toggle("Full instructions")
+    night_mode = st.toggle("Night mode")
+
+    if not preset_bool:
+        if st.session_state["default_preset"] is not None:
+            st.session_state["prev_preset"] = st.session_state["default_preset"]
+        st.session_state["default_preset"] = None
+    elif st.session_state["default_preset"] is None:
+        st.session_state["default_preset"] = st.session_state["prev_preset"]
     preset_choice = st.selectbox(
         "Presets",
         options=st.session_state["presets"].keys(),
         index=st.session_state["default_preset"],
-        key="preset_choice"
+        disabled = not preset_bool
     )
-    full_bool = st.toggle("Full instructions")
-    night_mode = st.toggle("Night mode")
-    
+    if preset_choice is not None:
+        st.session_state['default_preset'] = list(st.session_state["presets"].keys()).index(preset_choice)
+
+tear_options = ["None","Half","All"]
+
 with st.form("selections"):
     with st.sidebar:
-        current_preset = st.session_state["presets"][preset_choice]
+        if preset_bool:
+            current_preset = st.session_state["presets"][preset_choice]
+            st.session_state["yscale_slider"] = current_preset['paper size'] / 4.
+            st.session_state["angle_input"] = current_preset['angle 1']
+            st.session_state["tear_radio"] = tear_options[current_preset['tear 1']]
+            st.session_state["yoffset_slider"] = current_preset['y-offset 1']
+            st.session_state["anglep_input"] = current_preset['angle 2']
+            st.session_state["yoffsetp_slider"] = current_preset['y-offset 2']
+            st.session_state["tearp_radio"] = tear_options[current_preset['tear 2']]
+            
         yscale = st.slider(
             "y-scale",
             min_value=0.25,
             max_value=4.00,
-            value = current_preset['paper size'] / 4.,
             step=0.25,
-            key='slider'
+            disabled=preset_bool,
+            key='yscale_slider'
         )
         angle = st.number_input(
             "First Angle",
             format="%.4f",
-            value = current_preset['angle 1'],
-            step=1.
+            step=1.,
+            disabled=preset_bool,
+            key='angle_input'
         )
         iy1 = st.select_slider(
             "First y-offset",
             options=range(len(yoffset_list)),
-            value=current_preset['y-offset 1'],
             format_func=lambda x: f'{yoffset_list[x][3]:6.4f}',
-            key="box1"
+            disabled=preset_bool,
+            key="yoffset_slider"
         )
         tear_opt = st.radio(
             "First side tear",
-            options=["None","Half","All"],
-            index=current_preset['tear 1'],
-            horizontal=True
+            options=tear_options,
+            horizontal=True,
+            disabled=preset_bool,
+            key='tear_radio'
         )
         anglep = st.number_input(
             "Second Angle",
             format="%.4f",
-            value=current_preset['angle 2'],
-            step=1.
+            step=1.,
+            disabled=preset_bool,
+            key='anglep_input'
         )
         iy1p = st.select_slider(
             "Second y-offset",
             options=range(len(yoffset_list)),
-            value=current_preset['y-offset 2'],
             format_func=lambda x: f'{yoffset_list[x][3]:6.4f}',
-            key="box2"
+            disabled=preset_bool,
+            key="yoffsetp_slider"
         )
         tear_optp = st.radio(
             "Second side tear",
-            options=["None","Half","All"],
-            index=current_preset['tear 2'],
-            horizontal=True
+            options=tear_options,
+            horizontal=True,
+            disabled=preset_bool,
+            key='tearp_radio'
         )
         
-        submitted = st.form_submit_button("Draw")
+        submitted = st.form_submit_button("Draw", disabled=preset_bool)
 
-    if preset_choice == "None" and not submitted:
-        header.write("Enter a query in the sidebar")
+    if not preset_bool and not submitted:
+        header.write("Enter query")
     else:
         if abs(angle - anglep) < 0.01 and iy1 == iy1p and tear_opt == tear_optp:
             symm_bool = True
@@ -152,7 +181,10 @@ with st.form("selections"):
             with cells[1 + inum // 3][inum % 3]:
                 inum += 1
                 st_plots.draw_angle1(yscale, angle, y1, y0, x0, crease, guide_bool, night_mode)
-                st.write(f"{inum}.  {current_preset['fold description 1']}")
+                if preset_bool:
+                    st.write(f"{inum}.  {current_preset['fold description 1']}")
+                else:
+                    st.write(f"{inum}.  Fold.")
             with cells[1 + inum // 3][inum % 3]:
                 inum += 1
                 st_plots.draw_angle2(yscale, angle, y1, y0, x0, guide_bool, night_mode)
@@ -221,7 +253,10 @@ with st.form("selections"):
                 with cells[1 + inum // 3][inum % 3]:
                     inum += 1
                     st_plots.draw_angle1(yscale, anglep, y1p, y0, x0, creasep, guide_boolp, night_mode)
-                    st.write(f"{inum}.  Fold description.")
+                if preset_bool:
+                    st.write(f"{inum}.  {current_preset['fold description 2']}")
+                else:
+                    st.write(f"{inum}.  Fold.")
                 with cells[1 + inum // 3][inum % 3]:
                     inum += 1
                     st_plots.draw_angle2(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode)
@@ -268,18 +303,22 @@ with st.form("selections"):
                     crease, direction = st_plots.draw_guide1(yscale, y0, x0, yoffset_list[iy1p], night_mode)
 
         with header:
-            st.title(preset_choice)
-            st.write(f"Side length: {ell:.3f}")
-            st.write(f"Angles: {angle:.1f}$^\circ$,  {anglep:.1f}$^\circ$")
-            if preset_choice != "None":
+            if preset_bool:
+                st.title(preset_choice)
+                st.write(f"Side length: {ell:.3f}")
+                st.write(f"Angles: {angle:.1f}$^\circ$,  {anglep:.1f}$^\circ$")
                 st.write(f"Units needed: {current_preset['units needed']}")
                 st.write(f"Additional units: ")
-            if not current_preset['additional units']:
-                st.write("N/A")
-            for unit in current_preset['additional units']:
-                if st.button(unit):
-                    st.session_state['default_preset'] = list(st.session_state["presets"].keys()).index(unit)
-                    st.rerun()
+                if not current_preset['additional units']:
+                    st.write("N/A")
+                for unit in current_preset['additional units']:
+                    if st.button(unit):
+                        st.session_state['default_preset'] = list(st.session_state["presets"].keys()).index(unit)
+                        st.rerun()
+            else:
+                st.write(f"Side length: {ell:.3f}")
+                st.write(f"Angles: {angle:.1f}$^\circ$,  {anglep:.1f}$^\circ$")
+                
 
 
 ell0 = 1. - 0.5 * x0 / y0 * math.tan(0.5 * math.acos(1. / 3.))
