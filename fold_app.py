@@ -31,14 +31,20 @@ cells = [rows[i].columns(3, gap="medium") if i !=0 else rows[i].columns(2, gap="
 #st.session_state["presets"]["Disdyakis Dodecahedron (b)"] = (7,87.202,10,37.773,1,24)
 #st.session_state["presets"]["Disdyakis Dodecahedron (c)"] = (8,55.025,8,37.773,1,24)
 
+def preset_switch():
+    new_preset = st.session_state.preset_choice
+    if new_preset is not None:
+        st.session_state['default_preset'] = list(st.session_state["presets"].keys()).index(new_preset)
+    
+
 # read presets
-if "presets" not in st.session_state:
-    st.session_state["presets"] = st_funcs.read_presets()
+#if "presets" not in st.session_state:
+#    st.session_state["presets"] = st_funcs.read_presets()
+st.session_state["presets"] = st_funcs.read_presets()
 if "default_preset" not in st.session_state:
     st.session_state["default_preset"] = 0
 if "prev_preset" not in st.session_state:
     st.session_state["prev_preset"] = 0
-
 
 
 with st.sidebar:
@@ -56,10 +62,10 @@ with st.sidebar:
         "Presets",
         options=st.session_state["presets"].keys(),
         index=st.session_state["default_preset"],
-        disabled = not preset_bool
+        disabled = not preset_bool,
+        key='preset_choice',
+        on_change=preset_switch
     )
-    if preset_choice is not None:
-        st.session_state['default_preset'] = list(st.session_state["presets"].keys()).index(preset_choice)
 
 tear_options = ["None","Half","All"]
 
@@ -180,7 +186,13 @@ with st.form("selections"):
                 crease = None
             with cells[1 + inum // 3][inum % 3]:
                 inum += 1
-                st_plots.draw_angle1(yscale, angle, y1, y0, x0, crease, guide_bool, night_mode)
+                if preset_bool:
+                    pt1 = current_preset['fold ref 1a']
+                    pt2 = current_preset['fold ref 1b']
+                else:
+                    pt1 = []
+                    pt2 = []
+                st_plots.draw_angle1(yscale, angle, y1, y0, x0, crease, pt1, pt2, guide_bool, night_mode)
                 if preset_bool:
                     st.write(f"{inum}.  {current_preset['fold description 1']}")
                 else:
@@ -210,7 +222,7 @@ with st.form("selections"):
                             yscale = yscale - y1 / y0
                             y1 = 0
                         else:
-                            st.write(f"{inum}.  Tear horizontally half way between the bottom and the fold formed in step {inum_yoffset}. Rotate 180$^\circ$.")
+                            st.write(f"{inum}.  Tear horizontally half way between the bottom and the fold formed in step {inum_yoffset}. Refold creases.")
                             yscale = yscale - 0.5 * y1 / y0
                             y1 /= 2
                     else:
@@ -226,7 +238,7 @@ with st.form("selections"):
                     if symm_bool:
                         with cells[1 + inum // 3][inum % 3]:
                             inum += 1
-                            st_plots.draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, tear_opt, 0)
+                            st_plots.draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, "None", 0)
                             st.write(f"{inum}.  Unfold completely and rotate 180$^\circ$. Repeat steps 2 to {inum - 1}")
 
             if symm_bool:
@@ -252,11 +264,17 @@ with st.form("selections"):
                     creasep = None
                 with cells[1 + inum // 3][inum % 3]:
                     inum += 1
-                    st_plots.draw_angle1(yscale, anglep, y1p, y0, x0, creasep, guide_boolp, night_mode)
-                if preset_bool:
-                    st.write(f"{inum}.  {current_preset['fold description 2']}")
-                else:
-                    st.write(f"{inum}.  Fold.")
+                    if preset_bool:
+                        pt1 = current_preset['fold ref 2a']
+                        pt2 = current_preset['fold ref 2b']
+                    else:
+                        pt1 = []
+                        pt2 = []
+                    st_plots.draw_angle1(yscale, anglep, y1p, y0, x0, creasep, pt1, pt2, guide_boolp, night_mode)
+                    if preset_bool:
+                        st.write(f"{inum}.  {current_preset['fold description 2']}")
+                    else:
+                        st.write(f"{inum}.  Fold.")
                 with cells[1 + inum // 3][inum % 3]:
                     inum += 1
                     st_plots.draw_angle2(yscale, anglep, y1p, y0, x0, guide_boolp, night_mode)
@@ -310,7 +328,7 @@ with st.form("selections"):
                 st.write(f"Units needed: {current_preset['units needed']}")
                 st.write(f"Additional units: ")
                 if not current_preset['additional units']:
-                    st.write("N/A")
+                    st.button("N/A", disabled=True)
                 for unit in current_preset['additional units']:
                     if st.button(unit):
                         st.session_state['default_preset'] = list(st.session_state["presets"].keys()).index(unit)

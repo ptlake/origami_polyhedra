@@ -1,0 +1,57 @@
+{
+    "unit types": 2,
+    "units": [
+        {
+            "name": "Disdyakis Dodecahedron (a)",
+            "paper size": 6,
+            "angle 1": 55.0,
+            "y-offset 1": 8,
+            "tear 1": 1,
+            "angle 2": 87.2,
+            "y-offset 2": 10,
+            "tear 2": 1,
+            "fold description 1": "Fold.",
+            "fold ref 1a": [["0.0", "0.0"]],
+            "fold ref 1b": [["x3", "y3"]],
+            "fold description 2": "Fold.",
+            "fold ref 2a": [["0.", "0."]],
+            "fold ref 2b": [["x3", "y3"]],
+            "units needed": 24,
+            "additional units": ["Disdyakis Dodecahedron (b)","Disdyakis Dodecahedron (c)"]
+        }, {
+            "name": "Disdyakis Dodecahedron (b)",
+            "paper size": 7,
+            "angle 1": 87.2,
+            "y-offset 1": 10,
+            "tear 1": 0,
+            "angle 2": 37.8,
+            "y-offset 2": 1,
+            "tear 2": 1,
+            "fold description 1": "Fold.",
+            "fold ref 1a": [["0.0", "0.0"]],
+            "fold ref 1b": [["1.0", "0.0"]],
+            "fold description 2": "Fold.",
+            "fold ref 2a": [["0.25", "0.0"]],
+            "fold ref 2b": [["0.50", "0.0"]],
+            "units needed": 24,
+            "additional units": ["Disdyakis Dodecahedron (a)","Disdyakis Dodecahedron (c)"]
+        }, {
+            "name": "Disdyakis Dodecahedron (c)",
+            "paper size": 8,
+            "angle 1": 37.8,
+            "y-offset 1": 1,
+            "tear 1": 0,
+            "angle 2": 55.0,
+            "y-offset 2": 8,
+            "tear 2": 1,
+            "fold description 1": "Fold.",
+            "fold ref 1a": [["0.0", "0.0"]],
+            "fold ref 1b": [["1.0", "0.0"]],
+            "fold description 2": "Fold.",
+            "fold ref 2a": [["0.25", "0.0"]],
+            "fold ref 2b": [["0.50", "0.0"]],
+            "units needed": 24,
+            "additional units": ["Disdyakis Dodecahedron (a)","Disdyakis Dodecahedron (b)"]
+        }
+    ]
+}

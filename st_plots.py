@@ -71,6 +71,9 @@ def draw_page(yscale, y0, x0, night_mode):
             jy -=16
     for i,jy in enumerate(reversed(t)):
         ax.text(-0.25 * x0, (jy / 4 - 0.05) * y0, f'{i + 1}',{'size':6})
+
+    plt.xlim(0, 8.5 * x0)
+    plt.ylim(-0.5 * y0, 4 * y0)
     st.pyplot(fig)
     
 def draw_initial(yscale, y0, x0, night_mode):
@@ -95,6 +98,8 @@ def draw_initial(yscale, y0, x0, night_mode):
     #vertical divisions
     for i in range(1,4):
         ax.plot([i * x0 / 4, i * x0 / 4],[0, yscale * y0], linewidth=1.5, color=lc, linestyle="dashed")
+    plt.xlim(-0.15 * x0, 1.15 * x0)
+    plt.ylim(-0.15 * x0, y0 * yscale + 0.15 * x0)
     st.pyplot(fig)
     
 def draw_guide1(yscale, y0, x0, yoffset, night_mode):
@@ -153,7 +158,9 @@ def draw_guide1(yscale, y0, x0, yoffset, night_mode):
     a1 = patches.FancyArrowPatch((ixb * 0.25 * x0,  yb), (ixa * 0.25 * x0, 0), shrinkA=10, shrinkB=10, connectionstyle="arc3,rad=.3", color=lc, **kw)
     plt.gca().add_patch(a)
     plt.gca().add_patch(a1)
-    ax.scatter([ix3 * 0.25 * x0, ixa * 0.25 * x0, ixb * 0.25 * x0],[0, 0, yb], color=lc, s=30)        
+    ax.scatter([ix3 * 0.25 * x0, ixa * 0.25 * x0, ixb * 0.25 * x0],[0, 0, yb], color=lc, s=30)
+    plt.xlim(-0.15 * x0, 1.15 * x0)
+    plt.ylim(-0.15 * x0, y0 * yscale + 0.15 * x0)
     st.pyplot(fig)
     # where the crease is
     if (ix3 - ix2) == 0:
@@ -227,10 +234,12 @@ def draw_guide2(yscale, y0, x0, y1, crease, night_mode):
     plt.gca().add_patch(a1)
         
     ax.plot([0, x0],[y1, y1], linewidth=1.5, color=lc, linestyle="dashed")
+    plt.xlim(-0.15 * x0, 1.15 * x0)
+    plt.ylim(-0.15 * x0, y0 * yscale + 0.15 * x0)
     st.pyplot(fig)    
 
 
-def draw_angle1(yscale, angle, y1, y0, x0, crease, guide_bool, night_mode):
+def draw_angle1(yscale, angle, y1, y0, x0, crease, pt1, pt2, guide_bool, night_mode):
     if night_mode:
         plt.style.use('dark_background')
         lc = "white"
@@ -270,7 +279,23 @@ def draw_angle1(yscale, angle, y1, y0, x0, crease, guide_bool, night_mode):
     # 1/4 line vertical
     for i in range(1, 4):
         ax.plot([i * 0.25 * x0, i * 0.25 * x0],[0, y0p], linewidth=0.5, color=lc)
+
+    if pt1:
+        xpts = [0.5 * x0]
+        ypts = [y1]
+        for p1, p2 in zip(pt1,pt2):
+            p1 = list(map(eval,p1))
+            p2 = list(map(eval,p2))
+            xpts.append(p1[0])
+            ypts.append(p1[1])
+            xpts.append(p2[0])
+            ypts.append(p2[1])
+            a = patches.FancyArrowPatch(p1, p2, shrinkA=10, shrinkB=10, connectionstyle="arc3,rad=-.3", color=lc, **kw)
+            plt.gca().add_patch(a)
+        ax.scatter(xpts, ypts, color=lc, s=30)
         
+    plt.xlim(-0.15 * x0, 1.15 * x0)
+    plt.ylim(-0.15 * x0, y0 * yscale + 0.15 * x0)
 
     st.pyplot(fig)
 
@@ -346,6 +371,9 @@ def draw_angle2(yscale, angle, y1, y0, x0, guide_bool, night_mode):
         (x0 / 2, 0.75 * y0p),
         shrinkA=10, shrinkB=10, connectionstyle="arc3,rad=-.3", color=lc, **kw)
     plt.gca().add_patch(a)
+
+    plt.xlim(-0.15 * x0, 1.15 * x0)
+    plt.ylim(-0.15 * x0, y0 * yscale + 0.15 * x0)
 
     st.pyplot(fig)
 
@@ -520,6 +548,8 @@ def draw_angle3(yscale, angle, y1, y0, x0, guide_bool, night_mode, tear_opt, sec
             color=lc
         )
     ax.scatter([0],[0], color=lcp)
+    plt.xlim(-0.15 * x0, 1.15 * x0)
+    plt.ylim(-0.15 * x0, y0 * yscale + 0.15 * x0)
 
     st.pyplot(fig)
 
@@ -608,6 +638,8 @@ def draw_tear(yscale, angle, y1, y0, x0, night_mode, tear_opt, second_bool):
             [0.9 * y0p + 0.08 * x0 * math.cos(i/1100 * 2 * math.pi) for i in range(100,1000)],
             color=lc
         )
+    plt.xlim(-0.15 * x0, 1.15 * x0)
+    plt.ylim(-0.15 * x0, y0 * yscale + 0.15 * x0)
 
     st.pyplot(fig)
     
@@ -838,6 +870,8 @@ def draw_final(yscale, angle, y1, anglep, y1p, y0, x0, guide_bool, guide_boolp, 
         [0.25 * x0, 0.5 * x0 + dx1p],
         [y0p - y1, y0p - y1 + dx1p],
         linewidth=0.5, color=lc, zorder=7)
+    plt.xlim(-0.15 * x0, 1.15 * x0)
+    plt.ylim(-0.15 * x0, y0 * yscale + 0.15 * x0)
     st.pyplot(fig)
 
 def draw_fold(yscale, angle, y1, y0, x0, night_mode):
@@ -857,6 +891,7 @@ def draw_fold(yscale, angle, y1, y0, x0, night_mode):
         lc = "black"
     fig, ax = plt.subplots(figsize=(2 * x0, 2 * y0 * yscale))
     ax.axis('off')
+    ax.set_aspect(aspect='equal')
     
     #frame bottom
     ax.plot([x2, x0],[0,0], linewidth=1, color=lc)
@@ -902,5 +937,7 @@ def draw_fold(yscale, angle, y1, y0, x0, night_mode):
     ax.plot([0.75 * x0, 0.75 * x0], [ymin, y0p], linewidth=0.5, color=lc)
     if x3 > 0.75 * x0 and x2 < 0.75 * x0:
         ax.plot([0.75 * x0, 0.75 * x0], [0, y3 - (x3 - 0.75 * x0) / (x3 - x2) * y3], linewidth=0.5, color=lc)
+    plt.xlim(-0.15 * x0, 1.15 * x0)
+    plt.ylim(-0.15 * x0, y0 * yscale + 0.15 * x0)
         
     st.pyplot(fig)

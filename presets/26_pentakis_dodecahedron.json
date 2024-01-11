@@ -1,0 +1,42 @@
+{
+    "unit types": 2,
+    "units": [
+        {
+            "name": "Pentakis Dodecahedron (a)",
+            "paper size": 6,
+            "angle 1": 55.7,
+            "y-offset 1": 8,
+            "tear 1": 2,
+            "angle 2": 68.6,
+            "y-offset 2": 2,
+            "tear 2": 0,
+            "symmetric": false,
+            "fold description 1": "Fold.",
+            "fold ref 1a": [["0.0", "0.0"]],
+            "fold ref 1b": [["x3", "y3"]],
+            "fold description 2": "Fold.",
+            "fold ref 2a": [["0.25 * x0", "0.0"]],
+            "fold ref 2b": [["0.50 * x0", "y3 - 0.25 * x0 / x2 * y3"]],
+            "units needed": 60,
+            "additional units": ["Pentakis Dodecahedron (b)"]
+        }, {
+            "name": "Pentakis Dodecahedron (b)",
+            "paper size": 7,
+            "angle 1": 55.7,
+            "y-offset 1": 8,
+            "tear 1": 2,
+            "angle 2": 55.7,
+            "y-offset 2": 8,
+            "tear 2": 2,
+            "symmetric": true,
+            "fold description 1": "Fold.",
+            "fold ref 1a": [["0.0", "0.0"]],
+            "fold ref 1b": [["x3", "y3"]],
+            "fold description 2": "Fold.",
+            "fold ref 2a": [["0.0", "0.0"]],
+            "fold ref 2b": [["x3", "y3"]],
+            "units needed": 30,
+            "additional units": ["Pentakis Dodecahedron (a)"]
+        }
+    ]
+}

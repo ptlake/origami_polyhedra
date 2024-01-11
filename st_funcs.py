@@ -20,10 +20,10 @@ def get_yoffset():
     t.sort(key=lambda x:x[3])
     return t
 
-@st.cache_data
+#@st.cache_data
 def read_presets():
     presets = {}
-    for fname in glob.glob("presets/*.json"):
+    for fname in sorted(glob.glob("presets/*.json")):
         f = open(fname)
         data = json.load(f)
         f.close()
